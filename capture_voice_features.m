@@ -294,7 +294,7 @@ end
 
 [features, featureInfo] = extract_features(audio, fs, p);
 diagnostics.Features = featureInfo;
-% v4.1.4_claude: keep the raw capture so the GMM-UBM voice veto can score it
+% v4.1.4_Final: keep the raw capture so the GMM-UBM voice veto can score it
 diagnostics.RawAudio = raw;
 diagnostics.RawFs = p.fs;
 

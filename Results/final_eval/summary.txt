@@ -1,5 +1,5 @@
-v4.1.4_claude corpus evaluation  2026-09-30 09:34:10
-DataRoot: /home/claude/work/v414c/VSD_Enrollment/Train
+v4.1.4_Final corpus evaluation  2026-09-30 09:34:10
+DataRoot: work/v414_final/VSD_Enrollment/Train
 LOTO genuine acceptance: 114/116 = 98.3 % (wrong-student accepts: 0)
    same (database) mic: 88/88, other mics: 26/28
 CROSS-MIC (enrol database mic only): 18/20 = 90.0 % (wrong accepts 0)

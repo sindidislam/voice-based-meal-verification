@@ -1,7 +1,7 @@
 function params = apply_voice_calibration(params, projectRoot)
 %APPLY_VOICE_CALIBRATION Load frozen voice settings without business overrides.
 % A missing file leaves PARAMS unchanged. An invalid deployment fails closed.
-% v4.1.4_claude: all enrolment takes are used (the take-1-only rule was removed)
+% v4.1.4_Final: all enrolment takes are used (the take-1-only rule was removed)
 % and missing profile folders only raise a warning.
 if nargin < 2 || isempty(projectRoot), projectRoot = fileparts(mfilename('fullpath')); end
 file = fullfile(projectRoot, 'VoiceCalibration.mat');
@@ -52,7 +52,7 @@ if isempty(relative) || any(relative(1) == '/\') || contains(relative, ':') || a
 end
 profileRoot = fullfile(projectRoot, strrep(strrep(relative, '\', filesep), '/', filesep));
 if ~isfolder(fullfile(profileRoot,'ID')) || ~isfolder(fullfile(profileRoot,'Name'))
-    % v4.1.4_claude: warn and keep the defaults instead of refusing to start
+    % v4.1.4_Final: warn and keep the defaults instead of refusing to start
     warning('voice_calibration:missingProfiles', ...
         'Calibrated profile folders not found under %s; legacy calibration not applied.', profileRoot);
     return;
@@ -84,7 +84,7 @@ params.trainNameFolder = fullfile(profileRoot,'Name');
 params.trainCouponFolder = fullfile(profileRoot,'Coupon');
 % v4.1.4 forced params.enrollmentTemplateFileNames = {'1.wav'} here, so every
 % student was represented by ONE same-microphone take and any new microphone
-% was rejected (root cause 1 of the false rejections).  v4.1.4_claude removes the
+% was rejected (root cause 1 of the false rejections).  v4.1.4_Final removes the
 % allowlist: every usable take is a template (field absent = all files).
 if isfield(params,'enrollmentTemplateFileNames')
     params = rmfield(params,'enrollmentTemplateFileNames');

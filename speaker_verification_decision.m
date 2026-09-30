@@ -137,7 +137,7 @@ if enableFusion && hasFullScores
     end
 end
 
-% v4.1.4_claude CLEAR-WINNER RESCUE for the legacy matcher (used only when
+% v4.1.4_Final CLEAR-WINNER RESCUE for the legacy matcher (used only when
 % params.vsd.Enable = false).  The fixed distance ceilings (31.35 / 30.35) fail
 % as soon as the microphone changes, although the ranking stays right: the
 % genuine student is still rank 1 with a clear lead.  Accept when the NAME and

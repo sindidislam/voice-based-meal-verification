@@ -1,4 +1,4 @@
-# Voice-Based Meal Verification System for Hall Dining — v4.1.4_claude
+# Voice-Based Meal Verification System for Hall Dining — v4.1.4_Final
 
 EEE 312 (DSP Laboratory) · Group 07 · BUET
 
@@ -10,14 +10,14 @@ imposter identification and replay-attack prevention.
 
 ## 0. Check which engine is running
 
-Open MATLAB **inside this folder** (`Final project v4.1.4_claude`) and type `RUN_ME`.
+Open MATLAB **inside this folder** (`Final project v4.1.4_Final`) and type `RUN_ME`.
 The first line of every transaction in the status box must read
 
 ```
-Engine: v4.1.4_claude-1.1 (phrase content + voice biometrics + anti-replay)
+Engine: v4.1.4-Final (phrase content + voice biometrics + anti-replay)
 ```
 
-and the footer must say `ENGINE v4.1.4_claude-1.1`. If you see lines such as
+and the footer must say `ENGINE v4.1.4-Final`. If you see lines such as
 "Multi-modal joint biometric ranking" and "39-dimensional MFCC features" with no
 "Engine:" line, MATLAB is running the **old** `Final project v4.1.4` folder, which
 has no working voice check and no anti-replay.
@@ -87,7 +87,7 @@ self-adaptation: confident accepts on a new microphone are stored as extra
 
 ## 4. Measured results (all voices in the folder)
 
-All figures below come from `RUN_ME('evaluate')` and `RUN_ME('demo')`, run in GNU Octave 8.4. The same code runs in MATLAB. Output files are in `Results/claude_eval/`.
+All figures below come from `RUN_ME('evaluate')` and `RUN_ME('demo')`, run in GNU Octave 8.4. The same code runs in MATLAB. Output files are in `Results/final_eval/`.
 
 | Protocol | Result |
 |---|---|
@@ -104,7 +104,7 @@ All figures below come from `RUN_ME('evaluate')` and `RUN_ME('demo')`, run in GN
 |---|---|---|---|
 | Senior baseline (VQ-LBG, 44.1 kHz) | 87.9 % | 25.9 % | 15.4 % |
 | v4.1.4 (Group 07 previous) | 84.5 % | 7.4 % | 1.7 % |
-| **v4.1.4_claude 1.1** | **100 %** | **85.2 %** | **0.9 %** |
+| **v4.1.4_Final 1.1** | **100 %** | **85.2 %** | **0.9 %** |
 
 **Anti-replay challenge.**
 
@@ -140,11 +140,11 @@ We chose the clear-winner rule. It accepts rank 1 when it is far ahead of rank 2
 **Log 2: 2206147 said 2206150's roll number and name and was served a meal.**
 
 - The old matcher only compares words: joint score 1.13 against 1.21 for rank 2, and both distances were above their limits.
-- The v4.1.4_claude engine refuses this attack. Each of 2206147's four takes, scored as perfect words for 2206150, returns **IMPOSTER — likely imposter 2206147**. The voice scores are V(2206150) = −0.46 to −0.85 (rank 16–28) against V(2206147) = +0.26 to +1.47.
+- The v4.1.4_Final engine refuses this attack. Each of 2206147's four takes, scored as perfect words for 2206150, returns **IMPOSTER — likely imposter 2206147**. The voice scores are V(2206150) = −0.46 to −0.85 (rank 16–28) against V(2206147) = +0.26 to +1.47.
 
 **Changes in v1.1:**
 
-- `vsd_config.m`: `MinPid` changed from −0.10 to −0.15, and `ClearWin.*` was added. Version is now `v4.1.4_claude-1.1`.
+- `vsd_config.m`: `MinPid` changed from −0.10 to −0.15, and `ClearWin.*` was added. Version is now `v4.1.4-Final`.
 - `vsd_decide.m`: clear-winner branch, with `R.Rule` set to `'standard'` or `'clear-winner'`.
 - `speaker_verification_decision.m`: relative clear-winner rescue for the legacy matcher.
 - `vsd_voice_veto.m` (new), `capture_voice_features.m` and `verify_meal_workflow.m`: the legacy matcher's accept must now pass the GMM-UBM voice check. An imposter is refused and named.

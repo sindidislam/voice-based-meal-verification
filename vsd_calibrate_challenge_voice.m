@@ -10,7 +10,7 @@ function C = vsd_calibrate_challenge_voice(nCodes)
 %   (0 when the claimed student is the best voice).  It also records the
 %   DTW distance of every genuine answer to the claimed student's templates,
 %   which calibrates the splice-attack floor (C.Challenge.MinDist).
-%   Output: Results/claude_eval/challenge_voice_calibration.csv
+%   Output: Results/final_eval/challenge_voice_calibration.csv
 
 if nargin < 1, nCodes = 3; end
 if exist('OCTAVE_VERSION','builtin'), try, pkg load signal; catch, end, end
@@ -45,7 +45,7 @@ fprintf('genuine Dreq min / 5th pct: %.2f / %.2f   attacker (content ok) Dreq me
 for gmax = [0.2 0.4 0.6 0.8 1.0]
     fprintf('rule gap < %.1f : genuine pass %.3f  attacker pass %.3f\n', gmax, mean(G(:,4) < gmax), mean(A(:,4) < gmax));
 end
-out = fullfile(fileparts(mfilename('fullpath')), 'Results', 'claude_eval', 'challenge_voice_calibration.csv');
+out = fullfile(fileparts(mfilename('fullpath')), 'Results', 'final_eval', 'challenge_voice_calibration.csv');
 if exist(fileparts(out),'dir') ~= 7, mkdir(fileparts(out)); end
 fid = fopen(out, 'w'); fprintf(fid, 'claimed,speaker,genuine,voice_gap,D_requested\n');
 for k = 1:size(rows,1)

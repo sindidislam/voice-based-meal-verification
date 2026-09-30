@@ -4,7 +4,7 @@ function [ok, files] = vsd_enrol_digits(sid, status, p, stopFcn)
 %   [OK, FILES] = VSD_ENROL_DIGITS(SID, STATUS, P) prompts the student to say
 %   each digit once and writes DataRoot/Digits/<sid>/<sid>_<word>_NN.wav
 %   (NN = next free take number, so older takes are kept; the newest is used).
-%   The digits serve two purposes in v4.1.4_claude:
+%   The digits serve two purposes in v4.1.4_Final:
 %     1. templates of the random-digit anti-replay challenge (VSD_CHALLENGE);
 %     2. text-independent speech for the universal background model (UBM).
 %   A student without digits can still be verified; the challenge then uses

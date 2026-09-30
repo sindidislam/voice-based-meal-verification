@@ -1,5 +1,5 @@
 function U = vsd_frontend(x, fs, c)
-%VSD_FRONTEND Audio -> the two feature streams used by the v4.1.4_claude engine.
+%VSD_FRONTEND Audio -> the two feature streams used by the v4.1.4_Final engine.
 %
 %   U = VSD_FRONTEND(X, FS) processes one recording X (any rate, mono or
 %   stereo) and returns a struct with

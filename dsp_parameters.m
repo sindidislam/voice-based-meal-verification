@@ -286,7 +286,7 @@ params.evaluation.Matchers        = {'dtw','xcorr'};
 params.evaluation.ResultsFolder   = fullfile(projectRoot,'Results');
 params.evaluation.RandomSeed      = 312;
 if loadCalibration && exist('apply_voice_calibration','file')==2
-    % v4.1.4_claude: a missing or stale calibration must never stop the counter
+    % v4.1.4_Final: a missing or stale calibration must never stop the counter
     % (v4.1.4 raised an error when the profile folders were absent).
     try
         params=apply_voice_calibration(params,projectRoot);
@@ -296,7 +296,7 @@ if loadCalibration && exist('apply_voice_calibration','file')==2
 end
 
 % ---------------------------------------------------------------------
-% 11. v4.1.4_claude VOICE-SECURITY ENGINE (VSD engine)
+% 11. v4.1.4_Final VOICE-SECURITY ENGINE (VSD engine)
 %     Two-evidence verification (phrase content + GMM-UBM voice), imposter
 %     identification and replay-attack prevention.  See VSD_CONFIG.
 %     Set params.vsd.Enable = false to fall back to the v4.1.4 matcher.

@@ -1,5 +1,5 @@
 function E = vsd_evaluate_corpus(outDir, protocols)
-%VSD_EVALUATE_CORPUS Measure the v4.1.4_claude engine on every stored voice.
+%VSD_EVALUATE_CORPUS Measure the v4.1.4_Final engine on every stored voice.
 %
 %   E = VSD_EVALUATE_CORPUS() runs, on DataRoot of VSD_CONFIG:
 %     'loto'   leave-one-take-out: each (student, take) ID+name pair is tested
@@ -11,7 +11,7 @@ function E = vsd_evaluate_corpus(outDir, protocols)
 %     'mimic'  worst-case imposter: every genuine utterance of student A is
 %              scored as if it perfectly spoke victim B's phrases; refused
 %              unless B's voice gates pass.  Also reports whether A is named.
-%   Results go to OUTDIR (default Results/claude_eval): trials CSVs and
+%   Results go to OUTDIR (default Results/final_eval): trials CSVs and
 %   summary.txt.  The same protocols were run with proto/*.py while
 %   designing the engine; both implementations should agree.
 %
@@ -19,7 +19,7 @@ function E = vsd_evaluate_corpus(outDir, protocols)
 %   48 kHz stereo/float = original database mic, 48 kHz mono int16 = the second
 %   external USB microphone.
 
-if nargin < 1 || isempty(outDir), outDir = fullfile(fileparts(mfilename('fullpath')),'Results','claude_eval'); end
+if nargin < 1 || isempty(outDir), outDir = fullfile(fileparts(mfilename('fullpath')),'Results','final_eval'); end
 if nargin < 2 || isempty(protocols), protocols = {'loto','cross','open','mimic'}; end
 if exist(outDir,'dir') ~= 7, mkdir(outDir); end
 c = vsd_config();
@@ -67,7 +67,7 @@ if any(strcmp(protocols,'mimic'))
     fprintf('%s\n', lines{end});
 end
 fid = fopen(fullfile(outDir,'summary.txt'),'w');
-fprintf(fid, 'v4.1.4_claude corpus evaluation  %s\n', datestr(now,31));
+fprintf(fid, 'v4.1.4_Final corpus evaluation  %s\n', datestr(now,31));
 fprintf(fid, 'DataRoot: %s\n', c.DataRoot);
 fprintf(fid, '%s\n', lines{:});
 fclose(fid);

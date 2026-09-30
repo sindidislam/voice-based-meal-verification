@@ -1,7 +1,7 @@
 function log_verification_attempt(r,p,nowValue)
 %LOG_VERIFICATION_ATTEMPT Save retry/verification evidence separately from meals.
 % Contains no waveform; rejected candidates are diagnostics, never identities.
-% v4.1.4_claude adds Engine, VoiceScore, ImposterSuspect, ReplayFlag and
+% v4.1.4_Final adds Engine, VoiceScore, ImposterSuspect, ReplayFlag and
 % Challenge columns.  A log written by v4.1.4 (old header) is archived as
 % VerificationAttempts_v4.1.4.csv so the two schemas are never mixed.
 file=fullfile(fileparts(p.logFile),'VerificationAttempts.csv');

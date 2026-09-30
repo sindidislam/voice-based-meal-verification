@@ -1,6 +1,6 @@
 function result = verify_meal_workflow(status, typedCode, params, options) %#ok<INUSD>
 %VERIFY_MEAL_WORKFLOW Verify identity, then check the current monthly roster.
-% v4.1.4_claude: identity is decided by VSD_VERIFY_TRANSACTION (phrase content
+% v4.1.4_Final: identity is decided by VSD_VERIFY_TRANSACTION (phrase content
 % + GMM-UBM voice + imposter identification + anti-replay challenge) whenever
 % params.vsd.Enable is true; OPTIONS.VsdFiles / VsdAudio / VsdCaptureFcn,
 % HoldOut, SkipChallenge, ChallengeCode and NoAdapt are passed to it.
@@ -46,7 +46,7 @@ else
 end
 customCapture=isfield(options,'CaptureFcn') && isa(options.CaptureFcn,'function_handle');
 offline=~customCapture && (isfield(options,'IDFeatures') || isfield(options,'NameFeatures'));
-% v4.1.4_claude: the VSD engine handles every live / file / audio transaction.
+% v4.1.4_Final: the VSD engine handles every live / file / audio transaction.
 % The legacy matcher below is kept only for the legacy feature-injection seams
 % (IDFeatures/NameFeatures/CaptureFcn) and when params.vsd.Enable is false.
 useVsd = isfield(params,'vsd') && isstruct(params.vsd) && isfield(params.vsd,'Enable') && ...
@@ -185,7 +185,7 @@ for attempt=1:limit
             decision=speaker_verification_decision(claim,result.IDInfo,result.NameInfo,params,voiceReport);
             names=fieldnames(decision);
             for n=1:numel(names), result.(names{n})=decision.(names{n}); end
-            % v4.1.4_claude: the legacy matcher compares only the words, so a
+            % v4.1.4_Final: the legacy matcher compares only the words, so a
             % student saying a friend's roll number and name could be accepted.
             % Before accepting, the GMM-UBM voice models must agree (VSD_VOICE_VETO).
             if result.Verified && isfield(params,'vsd') && isstruct(params.vsd) && ~offline

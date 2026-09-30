@@ -1,5 +1,5 @@
 function R = test_vsd_engine(sid, victim)
-%TEST_VSD_ENGINE End-to-end demonstration of the v4.1.4_claude security engine.
+%TEST_VSD_ENGINE End-to-end demonstration of the v4.1.4_Final security engine.
 %
 %   R = TEST_VSD_ENGINE() runs complete counter transactions from stored
 %   recordings (no microphone needed) and prints what the counter would show:
@@ -96,7 +96,7 @@ opts = struct('Files', struct('ID', f('ID',victim,tv), 'Name', f('Name',victim,t
 opts.Audio = struct('Challenge', {{[xs; zeros(round(0.2*c.Fs), 1)], c.Fs}});
 R(end+1) = run_case(sprintf('7 SPLICE: %s''s enrolled digit files pasted as the answer', victim), opts, p, 'REPLAY', victim);
 
-fprintf('\n================ v4.1.4_claude engine demonstration ================\n');
+fprintf('\n================ v4.1.4_Final engine demonstration ================\n');
 for k = 1:numel(R)
     mark = 'PASS'; if ~R(k).Pass, mark = 'FAIL'; end
     fprintf('[%s] %-55s -> %-9s %s %s\n', mark, R(k).Case, R(k).Decision, R(k).Student, R(k).Imposter);

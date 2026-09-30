@@ -1,5 +1,5 @@
 function T = vsd_verify_transaction(status, p, options)
-%VSD_VERIFY_TRANSACTION One counter transaction with the v4.1.4_claude engine.
+%VSD_VERIFY_TRANSACTION One counter transaction with the v4.1.4_Final engine.
 %
 %   T = VSD_VERIFY_TRANSACTION(STATUS, P, OPTIONS) records (or reads) the
 %   spoken Student ID and full name, identifies the student from BOTH the

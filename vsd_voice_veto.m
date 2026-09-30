@@ -2,7 +2,7 @@ function [ok, msg, suspect, info] = vsd_voice_veto(cand, xId, fsId, xName, fsNam
 %VSD_VOICE_VETO GMM-UBM voice check for a student chosen by the legacy matcher.
 %
 %   [OK, MSG, SUSPECT] = VSD_VOICE_VETO(CAND, XID, FSID, XNAME, FSNAME, C)
-%   scores the raw ID and name recordings with the v4.1.4_claude voice models
+%   scores the raw ID and name recordings with the v4.1.4_Final voice models
 %   and refuses CAND when the voice is not his:
 %     IMPOSTER  the best voice Y is another enrolled student, V(Y) - V(CAND)
 %               >= C.ImpGap and V(Y) >= C.ImpMinVoice  -> SUSPECT = Y

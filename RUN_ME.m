@@ -1,11 +1,11 @@
 % =========================================================================
 % VOICE-BASED MEAL VERIFICATION SYSTEM FOR HALL DINING (EEE 312, Group 07)
-% v4.1.4_claude - single entry point launcher
+% v4.1.4_Final - single entry point launcher
 % =========================================================================
 %   RUN_ME            open the counter GUI (builds the voice models first)
 %   RUN_ME('evaluate') measure the engine on every stored voice
 %                      (leave-one-take-out, cross-microphone, unknown speaker,
-%                      perfect-mimic imposter) -> Results/claude_eval
+%                      perfect-mimic imposter) -> Results/final_eval
 %   RUN_ME('demo')     genuine / imposter / replay demonstration from files
 %   RUN_ME('rebuild')  re-extract every enrolment file and retrain the models
 %   RUN_ME('mic_check'), RUN_ME('calibrate_mic'), RUN_ME('enroll'), RUN_ME('test')
@@ -30,7 +30,7 @@ addpath(genpath(prjRoot));
 
 fprintf('\n=================================================================\n');
 fprintf('  VOICE-BASED MEAL VERIFICATION SYSTEM FOR HALL DINING (EEE 312)\n');
-fprintf('  v4.1.4_claude: phrase + voice biometrics, imposter ID, anti-replay\n');
+fprintf('  v4.1.4_Final: phrase + voice biometrics, imposter ID, anti-replay\n');
 fprintf('=================================================================\n');
 
 switch lower(char(mode))

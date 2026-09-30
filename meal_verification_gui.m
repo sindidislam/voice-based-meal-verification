@@ -276,7 +276,7 @@ if isfield(p,'vsd') && isstruct(p.vsd) && p.vsd.Enable
         p.vsd.Version, p.vsd.DataRoot));
 else
     update_status_text(status, ['Engine: LEGACY v4.1.4 matcher (params.vsd.Enable = false or vsd_*.m not on the path). ' ...
-        'Run RUN_ME from the "Final project v4.1.4_claude" folder to use the new engine.']);
+        'Run RUN_ME from the "Final project v4.1.4_Final" folder to use the new engine.']);
 end
 drawnow;
 
@@ -363,7 +363,7 @@ end
 end
 
 function shown = vsd_alert(result, banner, status)
-%VSD_ALERT Security banners of the v4.1.4_claude engine (imposter / replay / unknown).
+%VSD_ALERT Security banners of the v4.1.4_Final engine (imposter / replay / unknown).
 shown = true;
 switch result.Decision
     case 'IMPOSTER'
@@ -454,7 +454,7 @@ end
 function data = gate_table(result, p)
 %GATE_TABLE Gate evidence for the phrase that verifies the claim or last refusal.
 %   Both phrases must independently verify the same identity.
-%   With the v4.1.4_claude engine the six security gates are shown instead.
+%   With the v4.1.4_Final engine the six security gates are shown instead.
 if nargin >= 2 && isstruct(p) && isfield(p,'vsd') && p.vsd.Enable && ...
         (isempty(result) || ~isstruct(result) || (isfield(result,'Engine') && strcmp(result.Engine,'vsd')))
     data = vsd_gate_table(result);
@@ -531,7 +531,7 @@ data = [gateNames, asks, verdicts];
 end
 
 function data = vsd_gate_table(result)
-%VSD_GATE_TABLE The six gates of the v4.1.4_claude engine with the measured evidence.
+%VSD_GATE_TABLE The six gates of the v4.1.4_Final engine with the measured evidence.
 names = {'1 Signal quality'; '2 Phrase content'; '3 Voice biometrics'; '4 Imposter check'; ...
          '5 Anti-replay'; '6 Roster and meal'};
 asks = { ...
@@ -696,7 +696,7 @@ auditBtn.Layout.Row = 6; auditBtn.Layout.Column = 2;
 
 digitsBtn = uibutton(g, 'Text', 'Record digits 0-9', 'Tag', 'enrolDigitsBtn');
 digitsBtn.Layout.Row = 6; digitsBtn.Layout.Column = 3;
-digitsBtn.Tooltip = 'Anti-replay challenge templates + background voice model (v4.1.4_claude)';
+digitsBtn.Tooltip = 'Anti-replay challenge templates + background voice model (v4.1.4_Final)';
 
 rebuildBtn = uibutton(g, 'Text', 'Rebuild voice models', 'Tag', 'enrolRebuildBtn');
 rebuildBtn.Layout.Row = 6; rebuildBtn.Layout.Column = 4;
@@ -1122,7 +1122,7 @@ function enrol_record_digits(fig, sid, status)
 %ENROL_RECORD_DIGITS Ten isolated digits for the anti-replay challenge.
 p = fig.UserData.params;
 if ~isfield(p,'vsd') || ~p.vsd.Enable
-    update_status_text(status, 'The v4.1.4_claude engine is disabled (params.vsd.Enable = false).'); return;
+    update_status_text(status, 'The v4.1.4_Final engine is disabled (params.vsd.Enable = false).'); return;
 end
 [student, ok, msg] = student_id_contract(sid.Value);
 if ~ok, update_status_text(status, ['Cannot record digits: ' msg]); return; end
@@ -1135,7 +1135,7 @@ function enrol_rebuild_models(fig, status)
 %ENROL_REBUILD_MODELS Incremental update of templates, UBM and voice models.
 p = fig.UserData.params;
 if ~isfield(p,'vsd') || ~p.vsd.Enable
-    update_status_text(status, 'The v4.1.4_claude engine is disabled (params.vsd.Enable = false).'); return;
+    update_status_text(status, 'The v4.1.4_Final engine is disabled (params.vsd.Enable = false).'); return;
 end
 update_status_text(status, 'Updating voice models (only new or changed recordings are processed)...'); drawnow;
 t = tic;
@@ -1892,7 +1892,7 @@ g.Padding = [18 14 18 12];
 
 l1 = uilabel(g, 'Text', 'Experiment'); l1.Layout.Row = 1; l1.Layout.Column = 1;
 which = uidropdown(g, 'Tag', 'evalExperiment', 'Items', { ...
-    'vsd_evaluate_corpus - v4.1.4_claude engine on every stored voice (minutes)', ...
+    'vsd_evaluate_corpus - v4.1.4_Final engine on every stored voice (minutes)', ...
     'test_vsd_engine - genuine / imposter / replay demo (about a minute)', ...
     'verify_dsp_pipeline (fast, 15 checks)', ...
     'diagnose_audio_corpus (fast)', ...
@@ -1937,8 +1937,8 @@ end
 function items = results_file_list(p)
 files = dir(fullfile(p.evaluation.ResultsFolder, '*.csv'));
 items = {files.name};
-extra = dir(fullfile(p.evaluation.ResultsFolder, 'claude_eval', '*.csv'));
-items = [strcat('claude_eval/', {extra.name}), items];
+extra = dir(fullfile(p.evaluation.ResultsFolder, 'final_eval', '*.csv'));
+items = [strcat('final_eval/', {extra.name}), items];
 if isempty(items)
     items = {'(no result CSVs yet - run an experiment)'};
 end
@@ -1956,7 +1956,7 @@ try
     % exception: it is handed PARAMS because its whole job is to walk every
     % front-end in it.
     if startsWith(choice, 'vsd_evaluate_corpus')
-        E = vsd_evaluate_corpus(fullfile(p.evaluation.ResultsFolder, 'claude_eval'));
+        E = vsd_evaluate_corpus(fullfile(p.evaluation.ResultsFolder, 'final_eval'));
         update_status_text(summary, strjoin(E.summary, newline));
     elseif startsWith(choice, 'test_vsd_engine')
         test_vsd_engine();

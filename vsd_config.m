@@ -1,8 +1,8 @@
 function c = vsd_config(projectRoot)
-%VSD_CONFIG Every setting of the v4.1.4_claude voice-security engine (VSD engine).
+%VSD_CONFIG Every setting of the v4.1.4_Final voice-security engine (VSD engine).
 %
 %   Voice-Based Meal Verification System for Hall Dining -- EEE 312, Group 07
-%   v4.1.4_claude: robust two-evidence speaker verification + imposter
+%   v4.1.4_Final: robust two-evidence speaker verification + imposter
 %   identification + replay-attack prevention.
 %
 %   C = VSD_CONFIG() returns the configuration struct used by VSD_FRONTEND,
@@ -10,7 +10,7 @@ function c = vsd_config(projectRoot)
 %   VSD_REPLAY_GUARD. The numbers below were selected on the development
 %   protocols (leave-one-take-out genuine trials + held-out unknown speakers)
 %   of the 32-student corpus and then checked on the cross-microphone
-%   recordings; see Results/claude_eval and the project guide (Chapter 8).
+%   recordings; see Results/final_eval and the project guide (Chapter 8).
 %
 %   WHY A NEW ENGINE (root causes found in v4.1.4)
 %   1. Only 1.wav per student was enrolled (VoiceCalibration forced it), so a
@@ -28,7 +28,7 @@ function c = vsd_config(projectRoot)
 if nargin < 1 || isempty(projectRoot)
     projectRoot = fileparts(mfilename('fullpath'));
 end
-c.Version = 'v4.1.4_claude-1.1';
+c.Version = 'v4.1.4-Final';
 c.Enable  = true;
 
 % ---------------- data -------------------------------------------------

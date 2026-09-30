@@ -5,7 +5,7 @@ function [raw, fs, diag] = vsd_record_phrase(label, status, p, spokenPrompt)
 %   named LABEL ('Student ID', 'full name', or a challenge text) with the same
 %   acquisition policy as v4.1.4 (0.5 s ambient pre-roll, 3-2-1 cue, automatic
 %   stop 0.8 s after speech ends, 8 s cap) but returns the WAVEFORM so that the
-%   v4.1.4_claude engine can run its own front-end, the replay guard and the
+%   v4.1.4_Final engine can run its own front-end, the replay guard and the
 %   self-adaptation store.  DIAG.Stage is 'ok', 'user-stop', 'no-mic',
 %   'endpoint' (no speech) or 'recording-error'.
 %

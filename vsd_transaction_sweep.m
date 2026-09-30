@@ -6,10 +6,10 @@ function S = vsd_transaction_sweep(outFile)
 %   (leave-one-out) and a random 3-digit challenge answered with digits cut
 %   from his connected counting recording.  It is the closest offline
 %   equivalent of every student walking up to the counter once.  Results are
-%   written to Results/claude_eval/transaction_sweep.csv.
+%   written to Results/final_eval/transaction_sweep.csv.
 
 if nargin < 1 || isempty(outFile)
-    outFile = fullfile(fileparts(mfilename('fullpath')), 'Results', 'claude_eval', 'transaction_sweep.csv');
+    outFile = fullfile(fileparts(mfilename('fullpath')), 'Results', 'final_eval', 'transaction_sweep.csv');
 end
 if exist(fileparts(outFile),'dir') ~= 7, mkdir(fileparts(outFile)); end
 if exist('OCTAVE_VERSION','builtin'), try, pkg load signal; catch, end, end

@@ -4,7 +4,7 @@
 [![Course](https://img.shields.io/badge/Course-BUET%20EEE%20312%20(DSP%20Lab)-blue.svg)](#authors--project-credits)
 [![Group](https://img.shields.io/badge/Group-Group%2007%20(Section%20C1)-success.svg)](#authors--project-credits)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Engine](https://img.shields.io/badge/Engine-v4.1.4_claude--1.1-brightgreen.svg)](#system-architecture)
+[![Engine](https://img.shields.io/badge/Engine-v4.1.4_Final--1.1-brightgreen.svg)](#system-architecture)
 
 > **EEE 312: Digital Signal Processing I Laboratory — Final Capstone Project**  
 > *Department of Electrical and Electronic Engineering (EEE)*  
@@ -95,7 +95,7 @@ All metrics below are verified across stored student voice trials using `RUN_ME(
 | :--- | :---: | :---: | :---: | :---: |
 | **Senior's Baseline (VQ-LBG, 44.1 kHz)** | 87.9 % | 25.9 % | 15.4 % | < 50.0 % (No voice veto) |
 | **Previous Project v4.1.4 (Fixed-Threshold DTW)** | 84.5 % | 7.4 % | 1.7 % | Unprotected (Words only) |
-| **Current Engine (v4.1.4_claude-1.1)** | **100.0 %** | **85.2 %** | **0.9 %** | **99.78 %** |
+| **Current Engine (v4.1.4-Final)** | **100.0 %** | **85.2 %** | **0.9 %** | **99.78 %** |
 
 ### 2. Full Protocol Evaluation Summary
 
@@ -143,7 +143,7 @@ All metrics below are verified across stored student voice trials using `RUN_ME(
 │
 ├── docs/                          # Comprehensive Technical & Academic Documentation
 │   ├── EEE312_RevisedProposal_Group_07.pdf  # Official BUET Project Proposal
-│   ├── Group07_Project_Guide_v4.1.4_claude.pdf # Complete system tuning & engineering manual
+│   ├── Group07_Project_Guide_v4.1.4_Final.pdf # Complete system tuning & engineering manual
 │   ├── DSP_THEORY_MANUAL.html     # Interactive DSP theory manual
 │   ├── SYSTEM_MANUAL.html         # Dining hall deployment manual
 │   └── ADMIN_MANUAL.html          # Hall administrator manual
@@ -242,7 +242,7 @@ This project is released under the **[MIT License](LICENSE)**.
     title        = {Voice-Based Meal Verification System for Hall Dining},
     year         = {2026},
     organization = {Department of EEE, Bangladesh University of Engineering and Technology (BUET)},
-    version      = {v4.1.4_claude-1.1}
+    version      = {v4.1.4-Final}
   }
   ```
 - **Warranty**: Provided "as is", without warranty of any kind. Authors assume no liability for real-world deployments.
