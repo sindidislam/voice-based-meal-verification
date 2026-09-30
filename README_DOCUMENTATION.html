@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EEE 312 DSP Project Documentation Index (v4)</title>
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      max-width: 980px;
+      margin: auto;
+      padding: 40px 20px;
+      color: #17324d;
+      background: #f4f8fb;
+      line-height: 1.65;
+    }
+    main {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 30, 60, 0.07);
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      color: #0c4a6e;
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+    .badge-v4 {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+    }
+    .grid-docs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .doc-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 22px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .doc-card:hover {
+      border-color: #0284c7;
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.1);
+      transform: translateY(-2px);
+    }
+    .doc-card h3 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      color: #0f172a;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-card p {
+      font-size: 13.5px;
+      color: #64748b;
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .doc-card a.btn-link {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #0284c7;
+      text-decoration: none;
+      padding: 6px 12px;
+      background: #e0f2fe;
+      border-radius: 6px;
+      align-self: flex-start;
+      transition: all 0.2s;
+    }
+    .doc-card a.btn-link:hover {
+      background: #0284c7;
+      color: #fff;
+    }
+    .quick-start-box {
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      margin-top: 24px;
+    }
+  </style>
+</head>
+<body><aside style="margin:16px;padding:14px;border:2px solid #bd8700;background:#fff5d6;color:#222;font:16px/1.5 sans-serif"><strong>Current workflow, 28 September 2026:</strong> Coupons and manual-entry access are retired. In Admin, unlock the current month, search/select IDs or mark rows, then assign. Both ID and name recordings must independently verify the same student. Open the GUI <strong>Improvements</strong> tab for equations, sources and the stricter rule's acceptance tradeoff. Older workflow descriptions and measurements below are historical; see <a href="README_CURRENT.md">current instructions</a>.</aside>
+  <main>
+    <span class="badge-v4">EEE 312 DSP I LAB • VERSION 4 DOCUMENTATION SUITE</span>
+    <h1>Voice-Based Meal Verification System</h1>
+    <p style="color: #64748b; font-size: 16px;">
+      Digital Signal Processing Design Project • Department of Electrical & Electronic Engineering, BUET
+    </p>
+
+    <div class="grid-docs">
+      <!-- Presentation Deck -->
+      <div class="doc-card" style="border-left: 4px solid #0284c7;">
+        <div>
+          <h3>📊 Interactive Slide Deck</h3>
+          <p>
+            19-slide offline presentation with measured 31-student outcomes, implementation choices, speaker notes, keyboard navigation, and an evidence appendix.
+          </p>
+        </div>
+        <a href="PROJECT_PRESENTATION.html" class="btn-link">Open Presentation Deck →</a>
+      </div>
+
+      <!-- Master System Manual -->
+      <div class="doc-card" style="border-left: 4px solid #059669;">
+        <div>
+          <h3>📘 DSP Theory Manual</h3>
+          <p>
+            Separate 18-chapter manual explaining sampling, resampling, gain, noise suppression, endpoints, MFCC, DTW, calibration, measured results, and meal rules with equations and source links.
+          </p>
+        </div>
+        <a href="DSP_THEORY_MANUAL.html" class="btn-link">Open Theory Manual →</a>
+      </div>
+
+      <!-- Normal User Manual -->
+      <div class="doc-card" style="border-left: 4px solid #3b82f6;">
+        <div>
+          <h3>👤 Current Operating Guide</h3>
+          <p>
+            Enter the account, say ID once, then Name once only if needed. Recording ends after a detected pause, up to eight seconds. Voice verification precedes payment and meal checks.
+          </p>
+        </div>
+        <a href="DSP_THEORY_MANUAL.html#use-tests" class="btn-link">Open Operating Guide →</a>
+      </div>
+
+      <!-- Administrator Manual -->
+      <div class="doc-card" style="border-left: 4px solid #d97706;">
+        <div>
+          <h3>🔒 Payment and Meal Rules</h3>
+          <p>
+            How monthly coupons, half-open meal windows, duplicate prevention, attempt records and biometric decisions fit together.
+          </p>
+        </div>
+        <a href="DSP_THEORY_MANUAL.html#meals" class="btn-link">Open Meal Rules →</a>
+      </div>
+
+      <!-- Results & Benchmarks -->
+      <div class="doc-card" style="border-left: 4px solid #8b5cf6;">
+        <div>
+          <h3>📈 Results & Features</h3>
+          <p>
+            Final saved outcomes: 30/31 genuine claims and 0/930 own-content wrong claims accepted. Read the trial definitions, frozen thresholds and limitations beside the results.
+          </p>
+        </div>
+        <a href="DSP_THEORY_MANUAL.html#results" class="btn-link">Open Measured Results →</a>
+      </div>
+    </div>
+
+    <h2 style="font-family:'Outfit',sans-serif; font-size:20px; color:#0f172a; margin-top:32px;">Quick Start in MATLAB</h2>
+    <div class="quick-start-box">
+      % 1. Open the Final project v4.1.4 folder in MATLAB<br><br>
+      % 2. Launch the graphical system<br>
+      run_meal_system<br><br>
+      % 3. Run the synthetic software / DSP diagnostic<br>
+      run_meal_system('check')
+    </div>
+  </main>
+</body>
+</html>

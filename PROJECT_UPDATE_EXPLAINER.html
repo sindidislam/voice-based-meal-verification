@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EEE 312 DSP Project Update — Complete Code & Theory Guide (v4.1.3)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-gradient: radial-gradient(circle at 10% 10%, #0d1b2a 0%, #081119 50%, #03070b 100%);
+      --surface-1: rgba(255, 255, 255, 0.035);
+      --surface-2: rgba(255, 255, 255, 0.065);
+      --surface-3: rgba(255, 255, 255, 0.1);
+      --surface-border: rgba(100, 200, 255, 0.14);
+      --surface-border-hover: rgba(0, 210, 255, 0.4);
+      --text-primary: #f0f6fc;
+      --text-secondary: #9bb0c1;
+      --text-muted: #5e778f;
+      --accent-cyan: #00f2fe;
+      --accent-blue: #4facfe;
+      --accent-green: #38ef7d;
+      --accent-amber: #f7b731;
+      --accent-crimson: #ff5252;
+      --accent-purple: #b088f9;
+      --code-bg: rgba(0, 0, 0, 0.55);
+      --font-display: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --card-radius: 16px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    header.header-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(6, 14, 22, 0.88);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 16px 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-badge {
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+      color: #04090e;
+      font-weight: 800;
+      font-family: var(--font-display);
+      font-size: 13px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .header-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      color: #ffffff;
+    }
+    .header-subtitle {
+      font-size: 12px;
+      color: var(--accent-cyan);
+      font-family: var(--font-mono);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-btn {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      cursor: pointer;
+      background: transparent;
+    }
+    .nav-btn:hover, .nav-btn.active {
+      color: #ffffff;
+      background: var(--surface-2);
+      border-color: var(--surface-border);
+    }
+
+    /* Hero Banner */
+    .hero-section {
+      padding: 56px 36px 36px;
+      max-width: 1280px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 242, 254, 0.08);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--accent-cyan);
+      font-size: 12px;
+      font-weight: 600;
+      font-family: var(--font-mono);
+      margin-bottom: 18px;
+    }
+    .hero-pill::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent-cyan);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 44px;
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #ffffff 40%, var(--accent-cyan) 85%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+      max-width: 900px;
+    }
+    .hero-lead {
+      color: var(--text-secondary);
+      font-size: 17px;
+      max-width: 860px;
+      line-height: 1.65;
+    }
+
+    /* Quick Filter Chips */
+    .filter-bar {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 14px;
+      background: var(--surface-1);
+      border: 1px solid var(--surface-border);
+      border-radius: 12px;
+    }
+    .chip {
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--surface-border);
+      background: var(--surface-2);
+      color: var(--text-secondary);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .chip:hover, .chip.active {
+      background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+      border-color: var(--accent-cyan);
+      color: #ffffff;
+      box-shadow: 0 0 14px rgba(0, 242, 254, 0.2);
+    }
+
+    /* Main Content Container */
+    main.content-area {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 20px 36px 80px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+
+    /* Functional Block Card */
+    .block-card {
+      background: var(--surface-1);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      padding: 36px;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .block-card:hover {
+      border-color: var(--surface-border-hover);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
+    }
+    .block-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--card-accent, var(--accent-cyan));
+    }
+
+    .block-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .block-number {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--card-accent, var(--accent-cyan));
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .block-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.3px;
+    }
+    .block-analogy {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-amber);
+    }
+
+    /* Grid Layout inside Block */
+    .block-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+      margin-top: 20px;
+    }
+    @media (max-width: 960px) {
+      .block-grid { grid-template-columns: 1fr; }
+      .header-nav { padding: 14px 20px; }
+      .hero-section { padding: 36px 20px 20px; }
+      main.content-area { padding: 10px 20px 60px; }
+    }
+
+    /* Section Sub-Panels */
+    .sub-panel {
+      background: var(--surface-2);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 12px;
+      padding: 22px;
+    }
+    .sub-panel-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .title-icon {
+      font-size: 16px;
+    }
+
+    /* Easy Language Box */
+    .plain-english-box {
+      background: linear-gradient(135deg, rgba(56, 239, 125, 0.06), rgba(17, 153, 142, 0.06));
+      border: 1px solid rgba(56, 239, 125, 0.25);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 22px;
+    }
+    .plain-english-box p {
+      font-size: 15px;
+      color: #e4f7eb;
+      line-height: 1.65;
+    }
+    .plain-english-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--accent-green);
+      margin-bottom: 8px;
+      font-family: var(--font-mono);
+    }
+
+    /* File List Tags */
+    .file-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .file-pill {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      padding: 4px 10px;
+      background: var(--code-bg);
+      border: 1px solid var(--surface-border);
+      border-radius: 6px;
+      color: var(--accent-cyan);
+    }
+    .file-pill.updated {
+      border-color: var(--accent-amber);
+      color: #ffeaa7;
+      position: relative;
+    }
+    .file-pill.updated::after {
+      content: 'v4.1.3';
+      font-size: 9px;
+      margin-left: 6px;
+      padding: 1px 4px;
+      background: var(--accent-amber);
+      color: #000;
+      border-radius: 4px;
+      font-weight: 700;
+    }
+
+    /* Theory & Math Explanations */
+    .theory-item {
+      margin-bottom: 16px;
+    }
+    .theory-item:last-child { margin-bottom: 0; }
+    .theory-name {
+      font-weight: 600;
+      font-size: 14.5px;
+      color: #ffffff;
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .theory-desc {
+      font-size: 13.5px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .math-formula {
+      font-family: var(--font-mono);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 6px 12px;
+      border-radius: 6px;
+      border-left: 3px solid var(--accent-blue);
+      margin: 8px 0;
+      color: #a8d5ff;
+      font-size: 13px;
+      overflow-x: auto;
+    }
+
+    /* Version Highlights Badge Table */
+    .version-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 13.5px;
+    }
+    .version-table th {
+      text-align: left;
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--surface-border);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+    .version-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+    }
+    .version-table tr:last-child td { border-bottom: none; }
+    .v-badge {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .v411 { background: rgba(0, 210, 255, 0.15); color: var(--accent-cyan); border: 1px solid rgba(0, 210, 255, 0.3); }
+    .v412 { background: rgba(247, 183, 49, 0.15); color: var(--accent-amber); border: 1px solid rgba(247, 183, 49, 0.3); }
+    .v413 { background: rgba(56, 239, 125, 0.15); color: var(--accent-green); border: 1px solid rgba(56, 239, 125, 0.3); }
+
+    /* Footer */
+    footer.page-footer {
+      border-top: 1px solid var(--surface-border);
+      background: rgba(4, 9, 14, 0.9);
+      padding: 28px 36px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: auto;
+    }
+    footer a {
+      color: var(--accent-cyan);
+      text-decoration: none;
+    }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body><aside style="margin:16px;padding:14px;border:2px solid #bd8700;background:#fff5d6;color:#222;font:16px/1.5 sans-serif"><strong>Current workflow, 28 September 2026:</strong> Coupons and manual-entry access are retired. In Admin, unlock the current month, search/select IDs or mark rows, then assign. Both ID and name recordings must independently verify the same student. Open the GUI <strong>Improvements</strong> tab for equations, sources and the stricter rule's acceptance tradeoff. Older workflow descriptions and measurements below are historical; see <a href="README_CURRENT.md">current instructions</a>.</aside>
+
+  <!-- Top Header Bar -->
+  <header class="header-nav">
+    <div class="header-logo">
+      <span class="logo-badge">EEE 312 DSP</span>
+      <div>
+        <div class="header-title">Voice-Based Dining Hall Meal Verification System</div>
+        <div class="header-subtitle">Architecture & Theoretical Foundations Guide (v4.1.3)</div>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#block1" class="nav-btn">1. Capture</a></li>
+        <li><a href="#block2" class="nav-btn">2. Preprocess</a></li>
+        <li><a href="#block3" class="nav-btn">3. MFCC Features</a></li>
+        <li><a href="#block4" class="nav-btn">4. DTW Matcher</a></li>
+        <li><a href="#block5" class="nav-btn">5. Decision Engine</a></li>
+        <li><a href="#block6" class="nav-btn">6. Admin & Reset</a></li>
+        <li><a href="#block7" class="nav-btn">7. Interactive GUI</a></li>
+        <li><a href="#block8" class="nav-btn">8. Evaluation</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-pill">PROJECT UPDATE & DSP THEORY EXPLAINER</div>
+    <h1 class="hero-title">How Every File, Math Equation, and Block Works in Simple English</h1>
+    <p class="hero-lead">
+      This interactive guide translates the entire Digital Signal Processing (DSP) pipeline into plain, conceptual language.
+      Learn exactly what each file does, why specific mathematical transforms were chosen, and how the latest updates 
+      (v4.1.1, v4.1.2, and v4.1.3) solved real hall dining bottlenecks.
+    </p>
+
+    <!-- Quick Navigation Chips -->
+    <div class="filter-bar">
+      <div class="chip active" onclick="filterBlocks('all')">🌟 Show All Blocks</div>
+      <div class="chip" onclick="filterBlocks('dsp')">🔬 Core DSP Transforms (MFCC & DTW)</div>
+      <div class="chip" onclick="filterBlocks('audio')">🎙️ Audio & Quality Conditioning</div>
+      <div class="chip" onclick="filterBlocks('decision')">🛡️ 5-Gate Security & Disambiguation</div>
+      <div class="chip" onclick="filterBlocks('admin')">📊 Meal Logs & Reset Control</div>
+    </div>
+  </section>
+
+  <!-- Main Content Cards -->
+  <main class="content-area">
+
+    <!-- BLOCK 1: Audio Capture & Signal Quality -->
+    <article class="block-card" id="block1" data-category="audio" style="--card-accent: #00f2fe;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 1 &bull; The Ear of the System</div>
+          <h2 class="block-title">Audio Capture & Signal Quality Conditioning</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Don't record garbage"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English</div>
+        <p>
+          Before we can do any math on a voice, we have to record it through the microphone. But microphones in a dining hall pick up chair rattles, air conditioners, and people whispering. 
+          Block 1 asks the student to remain silent for the first 0.5 seconds so it can measure the background noise of the room. It then records the student, checks whether they spoke loud enough, 
+          and rejects breath pops or silences before anything else runs.
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill">capture_voice_features.m</span>
+            <span class="file-pill">record_audio_dsp.m</span>
+            <span class="file-pill">assess_recording_quality.m</span>
+            <span class="file-pill updated">interruptible_pause.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>capture_voice_features.m</code> manages the 3-2-1 visual countdown and hardware recording. <code>assess_recording_quality.m</code> calculates signal RMS and checks for clipping. 
+            <code>interruptible_pause.m</code> (extracted in v4.1.1) handles non-blocking sleep slices so the "Instant Stop" button can immediately abort recordings.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📐</span> DSP Theory & Formulas Used</div>
+          <div class="theory-item">
+            <div class="theory-name">1. Nyquist-Shannon Sampling Theorem</div>
+            <div class="theory-desc">Sampled at \(f_s = 8000\text{ Hz}\) (16-bit PCM). By Nyquist, \(f_s \ge 2 f_{\max}\). Human speech formants are intelligible up to 4 kHz. 8 kHz is the international telephony standard and avoids huge matrix sizes.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">2. Root Mean Square (RMS) Level Floor</div>
+            <div class="theory-desc">Computes overall signal energy:</div>
+            <div class="math-formula">RMS = \sqrt{\frac{1}{N}\sum_{n=1}^{N} x^2[n]} \ge 0.015</div>
+            <div class="theory-desc">If RMS is below 0.015, the student was too quiet or spoke off-mic.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">3. Low-Frequency Rumble Ratio</div>
+            <div class="theory-desc">Measures energy below 120 Hz relative to total energy. Catches wind, desk thumps, or 50 Hz power hum without rejecting genuine speech.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 2: Preprocessing & Cleaning -->
+    <article class="block-card" id="block2" data-category="audio" style="--card-accent: #4facfe;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 2 &bull; The Filter & Polisher</div>
+          <h2 class="block-title">Audio Preprocessing, Resampling & Noise Cleaning</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Cleaning dirty glasses before looking"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English</div>
+        <p>
+          Raw recordings are imperfect: some students speak quietly, some speak loudly, and background fans create a constant hum. 
+          Block 2 subtracts the steady background noise spectrum from the speech, boosts high-frequency vowels that naturally sound faint, 
+          and normalizes the volume so a quiet student and a loud student have identical energy levels.
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill">preprocess_audio.m</span>
+            <span class="file-pill">preprocess_template_audio.m</span>
+            <span class="file-pill">spectral_subtract_noise.m</span>
+            <span class="file-pill">agc_normalize.m</span>
+            <span class="file-pill">rational_resample_audio.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>spectral_subtract_noise.m</code> performs noise reduction. <code>agc_normalize.m</code> standardizes signal gain. 
+            <code>rational_resample_audio.m</code> cleanly handles rate conversion (e.g. 44.1 kHz to 8 kHz) using polyphase filtering.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📐</span> DSP Theory & Formulas Used</div>
+          <div class="theory-item">
+            <div class="theory-name">1. Spectral Subtraction (Boll's Algorithm)</div>
+            <div class="theory-desc">Using the 0.5s pre-roll noise estimate \(\hat{N}(\omega)\), we subtract background noise power in the frequency domain:</div>
+            <div class="math-formula">|\hat{S}(\omega)|^2 = \max\left(|Y(\omega)|^2 - \alpha |\hat{N}(\omega)|^2,\; \beta |Y(\omega)|^2\right)</div>
+            <div class="theory-desc">\(\alpha \approx 1.0\) is oversubtraction, \(\beta \approx 0.02\) is the spectral floor to eliminate musical noise.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">2. Pre-Emphasis FIR Filter</div>
+            <div class="theory-desc">Human speech naturally rolls off at \(-6\text{ dB/octave}\) due to glottal pulse damping. A 1st-order high-pass FIR filter flattens the spectrum:</div>
+            <div class="math-formula">H(z) = 1 - 0.97 z^{-1} \quad\iff\quad y[n] = x[n] - 0.97 x[n-1]</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">3. Automatic Gain Control (AGC)</div>
+            <div class="theory-desc">Scales signal to target RMS (0.12) without amplifying background silence when speech is absent.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 3: Feature Extraction (MFCC) -->
+    <article class="block-card" id="block3" data-category="dsp" style="--card-accent: #38ef7d;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 3 &bull; The Acoustic Fingerprint</div>
+          <h2 class="block-title">Mel-Frequency Cepstral Coefficients (MFCC)</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Extracting the vocal tract shape, ignoring pitch"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English</div>
+        <p>
+          You cannot compare two voices by comparing raw squiggly waveforms because the exact waves change every millisecond. 
+          Instead, we convert the sound into a biological representation of how the human throat and mouth shape sound. 
+          MFCC mimics how the human inner ear (the cochlea) hears frequencies, producing a concise matrix of numbers representing vocal tract resonance.
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill">extract_features.m</span>
+            <span class="file-pill">extract_mfcc_dsp.m</span>
+            <span class="file-pill">extract_dft_features.m</span>
+            <span class="file-pill">select_feature_frontend.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>extract_mfcc_dsp.m</code> implements the full 5-step MFCC mathematical pipeline from scratch. 
+            <code>extract_dft_features.m</code> provides an alternate DFT front-end. <code>select_feature_frontend.m</code> switches between them with calibrated thresholds.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📐</span> The 5-Step MFCC Mathematical Pipeline</div>
+          <div class="theory-item">
+            <div class="theory-name">Step 1: Framing & Hamming Windowing</div>
+            <div class="theory-desc">Speech is non-stationary over seconds, but quasi-stationary over 25 ms. Window: \(w[n] = 0.54 - 0.46\cos(2\pi n / N)\) prevents spectral leakage.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Step 2: Short-Time Fourier Transform (STFT)</div>
+            <div class="theory-desc">Converts each 25 ms frame to power spectrum \(|X(k)|^2\) via 512-point FFT.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Step 3: Mel-Scale Triangular Filterbank</div>
+            <div class="theory-desc">Human pitch perception is logarithmic above 1 kHz. We map Hz to Mel:</div>
+            <div class="math-formula">m = 2595 \log_{10}\left(1 + \frac{f}{700}\right)</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Step 4: Log Energy Compression</div>
+            <div class="theory-desc">Logarithm of filter energies matches human loudness sensitivity (Weber-Fechner Law).</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Step 5: Discrete Cosine Transform (DCT-II)</div>
+            <div class="theory-desc">Converts log-filterbank energies into 13 decorrelated cepstral coefficients, separating vocal tract envelope from fine pitch harmonics.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 4: Dynamic Time Warping (DTW) -->
+    <article class="block-card" id="block4" data-category="dsp" style="--card-accent: #f7b731;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 4 &bull; The Time-Elastic Matcher</div>
+          <h2 class="block-title">Dynamic Time Warping (DTW) Distance Alignment</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Matching speech even if spoken fast or slow"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English</div>
+        <p>
+          If you say your Student ID "2-2-0-6-1-4-7" quickly in 1.5 seconds on Monday, but slowly in 2.2 seconds on Tuesday, a standard point-by-point comparison fails completely. 
+          Dynamic Time Warping (DTW) acts like an elastic band: it warps the time axis non-linearly to align matching phonemes (digits) and measures the true acoustic distance between the two recordings.
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill">dtw_distance_dsp.m</span>
+            <span class="file-pill">find_best_voice_match.m</span>
+            <span class="file-pill">voice_match_scores.m</span>
+            <span class="file-pill">xcorr_distance_dsp.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>dtw_distance_dsp.m</code> computes the minimum-cost warping path between feature matrices. 
+            <code>find_best_voice_match.m</code> scans enrolled student templates in <code>Train/ID/</code> and finds the top winner and runner-up candidate with margin ratios.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📐</span> DTW Dynamic Programming Formulation</div>
+          <div class="theory-item">
+            <div class="theory-name">Local Euclidean Cost Matrix</div>
+            <div class="theory-desc">For test frame \(i\) and template frame \(j\), Euclidean distance is:</div>
+            <div class="math-formula">d(i, j) = \| \mathbf{c}_{test}[i] - \mathbf{c}_{template}[j] \|_2</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Global Cumulative Cost Recurrence</div>
+            <div class="theory-desc">Dynamic programming finds the optimal alignment path:</div>
+            <div class="math-formula">D(i, j) = d(i, j) + \min\begin{cases} D(i-1, j) & \text{(time expansion)} \\ D(i, j-1) & \text{(time compression)} \\ D(i-1, j-1) & \text{(diagonal match)} \end{cases}</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Confidence Margin Ratio</div>
+            <div class="math-formula">\text{Margin} = \frac{d_{\text{runner-up}}}{d_{\text{best}}} \ge 1.20</div>
+            <div class="theory-desc">Ensures the winner is distinctly separated from impostors and other enrolled students.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 5: 5-Gate Decision Engine & Smart Disambiguation -->
+    <article class="block-card" id="block5" data-category="decision" style="--card-accent: #b088f9;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 5 &bull; The Brain & Security Gates</div>
+          <h2 class="block-title">The 5-Gate Decision Engine & Smart Disambiguation</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "5 strict checkpoints before food is served"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English & v4.1.1 Upgrade</div>
+        <p>
+          A biometric system must never serve meals based on voice alone: what if it's outside dining hours? What if the student already ate? 
+          What if two students have acoustically similar IDs (like 2206147 and 2206148)? 
+          In <strong>v4.1.1</strong>, we fixed the "infinite retry loop": if your spoken ID distinctly beats all other students, you get access automatically on ID alone (no name prompt). 
+          Only if two students have a close/ambiguous match does it ask for spoken full name to resolve the tie!
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill updated">verify_meal_workflow.m</span>
+            <span class="file-pill">student_id_contract.m</span>
+            <span class="file-pill">student_profile.m</span>
+            <span class="file-pill">check_liveness_lowfreq.m</span>
+            <span class="file-pill">meal_window_now.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>verify_meal_workflow.m</code> coordinates the full live verification pipeline. 
+            <code>student_id_contract.m</code> strictly enforces 7-digit ID formatting. <code>meal_window_now.m</code> checks active hall dining service hours.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">🛡️</span> The 5 Sequential Security Gates</div>
+          <div class="theory-item">
+            <div class="theory-name">Gate 1: Signal Quality & Liveness</div>
+            <div class="theory-desc">Verifies non-zero duration, sufficient speech RMS, and checks low-frequency acoustics to reject speaker-phone playback attacks.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Gate 2: Spoken Student ID Biometric Match</div>
+            <div class="theory-desc">Matches spoken ID against enrolled templates (\(d_{\text{best}} \le 37.16\)). Computes voice similarity percentage (e.g. 88% match).</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Gate 3: Distinction vs. Name Disambiguation (v4.1.1)</div>
+            <div class="theory-desc">
+              &bull; <em>Significant Match:</em> Margin \(\ge 1.20\) &rarr; Grants access automatically! Zero name prompts.<br>
+              &bull; <em>Two-Student Ambiguity:</em> Margin \(< 1.20\) &rarr; Prompts for spoken full name to disambiguate between the two close candidates.
+            </div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Gate 4: Meal Window & Sit-out Check</div>
+            <div class="theory-desc">Prevents a student from taking two meals in the same sitting (Breakfast, Lunch, or Dinner).</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Gate 5: Monthly Entitlement Gate</div>
+            <div class="theory-desc">Checks <code>MonthlyFeeEntitlement.csv</code>. If dining fee is paid, bypasses token requirement immediately.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 6: Database, Logging & Admin Reset -->
+    <article class="block-card" id="block6" data-category="admin" style="--card-accent: #ff5252;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 6 &bull; The Vault & Records</div>
+          <h2 class="block-title">Meal Logging, Entitlement & Admin Reset</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "The accountant who never forgets"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English & v4.1.3 Upgrade</div>
+        <p>
+          Every successful meal serving is written to <code>MealLog.csv</code> (the Excel sheet). It stores the student ID, date, time, meal type, and biometric scores for auditing. 
+          In <strong>v4.1.3</strong>, we added the <strong>"Reset meal log..."</strong> button in the Admin tab. Operators can wipe today's entries with one click (so students can test again today) 
+          or clear the entire log, while keeping enrolled student voice profiles 100% safe and untouched!
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill">log_meal_csv.m</span>
+            <span class="file-pill">monthly_fee_entitlement.m</span>
+            <span class="file-pill">monthly_coupon_registry.m</span>
+            <span class="file-pill updated">reset_meal_log_csv.m</span>
+            <span class="file-pill updated">admin_reset_meal_log.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>log_meal_csv.m</code> appends verified transactions and enforces one-meal-per-window rules. 
+            <code>reset_meal_log_csv.m</code> (new in v4.1.3) cleans today's entries or wipes the sheet cleanly without corrupting column headers.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📊</span> Database Tables (Single Source of Truth)</div>
+          <div class="theory-item">
+            <div class="theory-name">1. MealLog.csv</div>
+            <div class="theory-desc">Stores <code>StudentID, StudentName, Date, Time, Meal, Method, NameDistance, CouponDistance, Margin</code>. Re-read on every transaction for audit integrity.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">2. MonthlyFeeEntitlement.csv</div>
+            <div class="theory-desc">Tracks monthly dining fee payments (e.g. 2026-09) by student ID. Bypasses manual coupon codes for paid students.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">3. MonthlyCouponRegistry.csv</div>
+            <div class="theory-desc">Fallback 6-digit coupon token registry assigned by hall administrators.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 7: Kiosk Frontend & Enrollment Session Management -->
+    <article class="block-card" id="block7" data-category="audio" style="--card-accent: #00d2ff;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 7 &bull; The User Experience</div>
+          <h2 class="block-title">Interactive GUI, Instant Stop & Profile Rollback</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Clean kiosk controls with panic button"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English & v4.1.2 Upgrade</div>
+        <p>
+          The graphical interface gives dining hall staff and students an intuitive kiosk experience with live countdowns, voice similarity meters, and audio inspection. 
+          In <strong>v4.1.2</strong>, we fixed enrollment stopping: clicking <strong>"Instant Stop"</strong> immediately cancels enrollment with 1 click (no 2-second restart loop) 
+          and deletes any partial <code>.wav</code> takes recorded during that session. We also enabled the <strong>"Discard profile"</strong> button to wipe old recordings and start fresh from Take 1!
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> MATLAB Files in this Block</div>
+          <div class="file-tags">
+            <span class="file-pill updated">meal_verification_gui.m</span>
+            <span class="file-pill updated">rollback_enrol_session.m</span>
+            <span class="file-pill updated">enrol_discard_profile.m</span>
+            <span class="file-pill updated">delete_student_recordings.m</span>
+          </div>
+          <p style="margin-top: 14px; font-size: 13.5px; color: var(--text-secondary);">
+            <strong>What they do:</strong> <code>meal_verification_gui.m</code> is the master asynchronous UI built on MATLAB's modern <code>uifigure</code> and <code>uigridlayout</code>. 
+            <code>rollback_enrol_session.m</code> and <code>delete_student_recordings.m</code> provide safe file cleanup.
+          </p>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">⚡</span> Key v4.1.2 UI Innovations</div>
+          <div class="theory-item">
+            <div class="theory-name">1-Click Instant Stop Termination</div>
+            <div class="theory-desc">Clicking Instant Stop stops the audio recorder immediately, re-enables all buttons, and returns to the initial state with zero delay.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Atomic Session Rollback</div>
+            <div class="theory-desc">Tracks created takes in <code>sessionCreatedFiles</code>. If aborted halfway, all partial files from that attempt are purged so incomplete profiles never pollute the training database.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">"Start Fresh (Delete Old)" Dialog</div>
+            <div class="theory-desc">Provides explicit choices when enrolling an existing student ID: Start fresh (wipe old), Add new takes, or Cancel.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- BLOCK 8: Evaluation, Accuracy & Test Verification -->
+    <article class="block-card" id="block8" data-category="dsp" style="--card-accent: #a29bfe;">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Block 8 &bull; The Scientific Proof</div>
+          <h2 class="block-title">Verification Tests, Calibration & Benchmarking</h2>
+        </div>
+        <div class="block-analogy">💡 Concept: "Proving it works with math and data"</div>
+      </div>
+
+      <div class="plain-english-box">
+        <div class="plain-english-label">In Plain English</div>
+        <p>
+          Engineers don't say "it should work"—we prove it with automated test suites! 
+          Block 8 runs mathematical experiments measuring biometric accuracy, sweeping DTW thresholds to calculate False Acceptance Rate (FAR) and False Rejection Rate (FRR). 
+          It includes dedicated unit tests for every new feature added in v4.1.1, v4.1.2, and v4.1.3.
+        </p>
+      </div>
+
+      <div class="block-grid">
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📁</span> Test & Calibration Files</div>
+          <div class="file-tags">
+            <span class="file-pill updated">test_v4_1_features.m</span>
+            <span class="file-pill updated">test_reset_meal_log.m</span>
+            <span class="file-pill updated">test_enrol_discard_and_stop.m</span>
+            <span class="file-pill updated">test_id_margin_disambiguation.m</span>
+            <span class="file-pill">calibrate_dtw_threshold.m</span>
+            <span class="file-pill">experiment_verification_accuracy.m</span>
+            <span class="file-pill">diagnose_audio_corpus.m</span>
+          </div>
+        </div>
+
+        <div class="sub-panel">
+          <div class="sub-panel-title"><span class="title-icon">📈</span> Biometric Metrics (EEE 312 CO4/CO5)</div>
+          <div class="theory-item">
+            <div class="theory-name">False Acceptance Rate (FAR)</div>
+            <div class="theory-desc">Percentage of impostors falsely granted a meal. Target: &le; 1%.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">False Rejection Rate (FRR)</div>
+            <div class="theory-desc">Percentage of genuine students incorrectly refused. Target: &le; 3%.</div>
+          </div>
+          <div class="theory-item">
+            <div class="theory-name">Equal Error Rate (EER) Calibration</div>
+            <div class="theory-desc">The operating point where \(\text{FAR} = \text{FRR}\). Calibrates optimal threshold \(\text{DTW} = 37.16\).</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Version Comparison Matrix -->
+    <section class="block-card" style="--card-accent: var(--accent-cyan);">
+      <div class="block-header">
+        <div>
+          <div class="block-number">Evolution &bull; Changelog Matrix</div>
+          <h2 class="block-title">Summary of Updates from v4.1 &rarr; v4.1.3</h2>
+        </div>
+      </div>
+
+      <table class="version-table">
+        <thead>
+          <tr>
+            <th>Version</th>
+            <th>Problem / Bottleneck Identified</th>
+            <th>Solution & DSP / Software Change</th>
+            <th>Impact on User Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="v-badge v411">v4.1.1</span></td>
+            <td>Student voice matched ID with high similarity, but system got trapped in infinite retries and demanded name.</td>
+            <td>Implemented 3-way decision rule in <code>verify_meal_workflow.m</code>. Significant match (\(\text{Margin} \ge 1.20\)) gives instant access by ID alone. Close calls ask for name. Seeded <code>MonthlyFeeEntitlement.csv</code>.</td>
+            <td>Zero name prompts for distinct voice matches; instantaneous meal access; transparent two-student tiebreaker.</td>
+          </tr>
+          <tr>
+            <td><span class="v-badge v412">v4.1.2</span></td>
+            <td>Clicking Instant Stop looped for 2s and restarted; partial takes stayed on disk; Discard button was disabled.</td>
+            <td>1-click immediate abort in <code>meal_verification_gui.m</code>. Implemented <code>rollback_enrol_session.m</code> to delete session files. Enabled <code>enrolDiscardBtn</code> ("Discard profile"). Added "Start fresh" dialog.</td>
+            <td>No orphan <code>.wav</code> files; instant cancellation; ability to wipe a student profile and record cleanly from Take 1.</td>
+          </tr>
+          <tr>
+            <td><span class="v-badge v413">v4.1.3</span></td>
+            <td>No way to reset today's serving entries in the Excel sheet for demonstrations without deleting voice files.</td>
+            <td>Added <code>Reset meal log...</code> button in Admin tab with <code>reset_meal_log_csv.m</code>. Offers "Reset today only" (removes today's rows) vs. "Clear entire log" with 100% voice profile protection.</td>
+            <td>Instant re-testing in demonstrations without sit-out errors; enrolled voice profiles never lost.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
+  <!-- Page Footer -->
+  <footer class="page-footer">
+    <p>EEE 312 Digital Signal Processing I Laboratory &bull; Bangladesh University of Engineering and Technology (BUET)</p>
+    <p style="margin-top: 6px; font-size: 12px; color: var(--text-muted);">
+      Project Repository: <code>Final project v4.1.3</code> &bull; Built with MATLAB R2024a &bull; Documentation generated 2026-09-09
+    </p>
+  </footer>
+
+  <!-- Filter & Interactive Logic -->
+  <script>
+    function filterBlocks(category) {
+      const chips = document.querySelectorAll('.chip');
+      chips.forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const cards = document.querySelectorAll('.block-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+# MATLAB & Octave temporary and backup files
+*.asv
+*.autosave
+*.bak
+*~
+*.tmp
+*.temp
+octave-core
+octave-workspace
+
+# Operating System files
+[Dd]esktop.ini
+[Tt]humbs.db
+ehthumbs.db
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# Logs and scratch execution outputs
+*.log
+replay_pid*.log
+scratch/
+tmp/
+
+# Crash dumps and profiling
+*.crash
+*.prof
+matlab_crash_dump.*
+
+# Keep essential models and data files
+!VSD_Models.mat
+!VoiceCalibration.mat
+!LivenessModel.mat
+!*.csv
+!*.wav

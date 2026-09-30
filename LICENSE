@@ -1,0 +1,61 @@
+MIT License
+
+Copyright (c) 2026 S M Sindid Islam Mahodi, Samin Zahan Khan, Syed Ibnul Morshed, Abdullah Al Rohan
+Department of Electrical and Electronic Engineering (EEE)
+Bangladesh University of Engineering and Technology (BUET)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+================================================================================
+PLAIN-ENGLISH LICENSE EXPLANATION & ACADEMIC ATTRIBUTION
+================================================================================
+
+1. WHAT DOES THIS LICENSE ALLOW?
+   - Freedom to Study & Run: You can clone, study, test, and run this DSP voice
+     verification system in MATLAB, GNU Octave, or your own environment.
+   - Freedom to Modify: You are permitted to fork, refactor, add new DSP filters,
+     or adapt the feature extraction pipeline (MFCC, CMVN, GMM-UBM, DTW).
+   - Freedom to Distribute: You may share your modified versions or incorporate
+     them into non-commercial or commercial tools, provided the copyright notice
+     and this license remain intact.
+
+2. WHAT ARE YOUR OBLIGATIONS?
+   - Attribution: You MUST preserve the original copyright notice crediting
+     S M Sindid Islam Mahodi and co-authors in any copy or substantial portion.
+   - Academic Citation: If you use this software, datasets, algorithms, or
+     architecture in coursework, research, technical reports, or publications,
+     please cite this repository as follows:
+     
+     Mahodi, S. M. S. I., Khan, S. Z., Morshed, S. I., & Rohan, A. A. (2026).
+     Voice-Based Meal Verification System for Hall Dining (Version 4.1.4_claude)
+     [Computer software]. Bangladesh University of Engineering and Technology (BUET).
+
+3. BIOMETRIC DATA & ETHICS NOTICE:
+   - For student privacy and security, biometric voice samples of non-consenting
+     third-party classmates have been strictly removed from this repository.
+   - The included voice takes belong exclusively to the contributing project authors
+     who consented to provide sample recordings for functional reproducibility.
+   - These voice recordings may NOT be used to train malicious deepfake models or
+     impersonation attacks against the authors.
+
+4. NO WARRANTY & LIMITATION OF LIABILITY:
+   - This software was developed as an undergraduate DSP laboratory project.
+   - It is provided "as is" without warranty of any kind. The authors and BUET
+     accept no responsibility for damages, security compromises, or unintended
+     behavior in real-world deployment.

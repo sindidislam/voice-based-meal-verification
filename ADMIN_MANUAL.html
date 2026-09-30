@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Administrator Manual — Voice Meal Verification (v4)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      max-width: 980px;
+      margin: auto;
+      padding: 32px 20px;
+      color: #17324d;
+      background: #f4f8fb;
+      line-height: 1.65;
+    }
+    main {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 30, 60, 0.07);
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      color: #0c4a6e;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      color: #0369a1;
+      border-bottom: 2px solid #e0f2fe;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
+    .badge-v4 {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .step {
+      border-left: 5px solid #0284c7;
+      background: #f0f9ff;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+    }
+    .danger {
+      border-left: 5px solid #e11d48;
+      background: #fff1f2;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+    }
+    kbd {
+      background: #e2e8f0;
+      color: #0f172a;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0369a1;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    td, th {
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nav-bar {
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+  </style>
+</head>
+<body><aside style="margin:16px;padding:14px;border:2px solid #bd8700;background:#fff5d6;color:#222;font:16px/1.5 sans-serif"><strong>Current workflow, 28 September 2026:</strong> Coupons and manual-entry access are retired. In Admin, unlock the current month, search/select IDs or mark rows, then assign. Both ID and name recordings must independently verify the same student. Open the GUI <strong>Improvements</strong> tab for equations, sources and the stricter rule's acceptance tradeoff. Older workflow descriptions and measurements below are historical; see <a href="README_CURRENT.md">current instructions</a>.</aside>
+  <main>
+    <div class="nav-bar">
+      <a href="README_DOCUMENTATION.html">← Documentation Index</a> &nbsp;|&nbsp; 
+      <a href="SYSTEM_MANUAL.html">Comprehensive Technical & Theory Manual</a> &nbsp;|&nbsp; 
+      <a href="PROJECT_PRESENTATION.html">Interactive Slide Deck (Update)</a>
+    </div>
+
+    <span class="badge-v4">VERSION 4 VERIFIED ARCHITECTURE</span>
+    <h1>Administrator Manual — System Governance & Diagnostics</h1>
+    <p>
+      This manual covers administrative governance, dynamic monthly coupon distribution, student voice enrollment, and DSP engineering inspection for <strong>Final project v4</strong>.
+    </p>
+
+    <h2>1. Launching & Logging In</h2>
+    <ol style="padding-left: 20px; line-height: 1.8; font-size: 14.5px;">
+      <li>Launch MATLAB R2024a+ and set Current Folder to <code>Final project v4</code>.</li>
+      <li>Execute: <code>run_meal_system</code> in the Command Window.</li>
+      <li>Select the <strong>Admin</strong> tab.</li>
+      <li>Enter Admin ID (default demo: <code>admin</code>) and Password (default demo: <code>admin</code>).</li>
+      <li>Press <kbd>Unlock / meal log</kbd>. Upon successful authentication, administrative controls and tables are activated.</li>
+    </ol>
+
+    <div class="danger">
+      <strong>CRITICAL SECURITY PROTOCOL:</strong> Never leave the Admin tab unlocked at a public dining counter! The unlocked interface exposes private meal records, student names, timestamps, and acoustic distance scores. Always press <kbd>Lock</kbd> before stepping away.
+    </div>
+
+    <h2>2. Dynamic Monthly Coupon Administration (v4 Architecture)</h2>
+    <p>
+      In Version 4, the system has transitioned to a <strong>single source of truth</strong>: the dynamic monthly coupon registry. Static <code>code.txt</code> files have been permanently eliminated from the verification path.
+    </p>
+    <div class="step">
+      <strong>Monthly Token Distribution Workflow:</strong>
+      <ol style="padding-left: 18px; margin-top: 6px; line-height: 1.7;">
+        <li>When a student pays their monthly dining fee, navigate to the <strong>Admin</strong> tab.</li>
+        <li>Under <em>Assign coupon</em>, enter the 7-digit Student ID (e.g. <code>2206147</code>) and generate/enter a unique 6-digit code.</li>
+        <li>Press <kbd>Assign for current month</kbd>. The system writes an active record to <code>MonthlyCouponRegistry.csv</code>.</li>
+        <li>Provide the 6-digit code to the student. When they present at the counter for their first meal of the month, typing this code verifies their payment and unlocks their dining entitlement for the entire 30-day billing cycle.</li>
+        <li>Press <kbd>Coupon registry</kbd> to view assigned codes, active months, and consumed timestamps.</li>
+      </ol>
+    </div>
+
+    <h2>3. Private Audit Records & Databases</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Admin Action Button</th>
+          <th>CSV File Source</th>
+          <th>Authoritative Content & Governance Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><kbd>Unlock / meal log</kbd></td>
+          <td><code>MealLog.csv</code></td>
+          <td>Chronological log of all served meals: Student ID, Meal (Breakfast/Lunch/Dinner), Timestamp, Match Distance, Margin Ratio, and Method.</td>
+        </tr>
+        <tr>
+          <td><kbd>Monthly payments</kbd></td>
+          <td><code>MonthlyFeeEntitlement.csv</code></td>
+          <td>Master entitlement ledger listing students who have paid for the active calendar month.</td>
+        </tr>
+        <tr>
+          <td><kbd>Coupon registry</kbd></td>
+          <td><code>MonthlyCouponRegistry.csv</code></td>
+          <td>Single source of coupon truth: Student ID, 6-digit Code, Month, Consumed Status (true/false), and Consumed Timestamp.</td>
+        </tr>
+        <tr>
+          <td><kbd>Attempt log</kbd></td>
+          <td><code>MealAttemptLog.csv</code></td>
+          <td>Diagnostic record of all attempts including denied access, duplicate meals, and out-of-hours requests.</td>
+        </tr>
+        <tr>
+          <td><kbd>Corpus audit</kbd></td>
+          <td><code>Results/corpus_diagnostics.csv</code></td>
+          <td>Acoustic quality assessment of enrolled WAV files: SNR, RMS, speech duration, and clipping status.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>4. Student Enrollment & Voice Import (v4 Updates)</h2>
+    <p>
+      Press <kbd>Open DSP workspace</kbd> to construct the private <strong>New Enroll</strong> tab:
+    </p>
+    <ul>
+      <li><strong>Decoupled Credentials:</strong> Version 4 does <em>not</em> ask for a coupon during enrollment. Enrollment captures vocal identity profiles only (Spoken ID and Spoken Name).</li>
+      <li><strong>Automated Live Enrollment:</strong> Press <kbd>New Enroll</kbd> to record 3 ID takes and 3 Name takes. Each take is strictly validated by <code>assess_recording_quality.m</code>. Usable takes are stored under <code>Train/ID/&lt;id&gt;</code> and <code>Train/Name/&lt;id&gt;</code>.</li>
+      <li><strong>Multi-File WAV Take Import (New in v4):</strong> Press <kbd>Import .wav file(s)...</kbd> to select individual <code>.wav</code> files using Windows multi-select. The importer automatically converts audio to mono, resamples to 8 kHz, checks speech SNR/clipping, and saves valid files sequentially.</li>
+      <li><strong>Template Cache Reset:</strong> Press <kbd>Reload template cache</kbd> after adding new files to clear in-memory buffers so the matcher recognizes new students immediately.</li>
+    </ul>
+
+    <h2>5. Automated Test & Regression Commands</h2>
+    <p>
+      Verify that the system meets 100% of its engineering constraints by running the automated headless regression suite from the project directory:
+    </p>
+    <pre style="background:#0f172a; color:#38bdf8; padding:14px; border-radius:8px; font-family:'JetBrains Mono',monospace; font-size:13px; overflow-x:auto;">
+cd 'Final project v4'
+matlab -batch "verify_student_id_contract; verify_monthly_coupons; verify_student_id_workflow; verify_coupon_registry_gate; verify_dsp_pipeline; disp('ALL PASSED')"
+    </pre>
+  </main>
+</body>
+</html>

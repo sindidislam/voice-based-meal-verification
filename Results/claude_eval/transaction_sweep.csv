@@ -1,0 +1,33 @@
+student,take,decision,stage,verified,challenge,P_id,P_name,V
+2206131,3,VERIFIED,verified,1,not tested (no independent digit recording),0.3719,0.6784,0.9497
+2206132,3,VERIFIED,verified,1,[5 3 0] passed,0.3311,0.4232,0.7603
+2206133,3,VERIFIED,verified,1,[9 0 8] passed,0.2676,0.3717,1.0243
+2206135,3,VERIFIED,verified,1,not tested (no independent digit recording),0.0638,0.2924,0.5444
+2206136,15,VERIFIED,verified,1,not tested (no independent digit recording),0.4280,0.3974,1.6609
+2206137,3,VERIFIED,verified,1,[2 5 5] passed,0.2321,0.3977,1.0805
+2206138,3,VERIFIED,verified,1,[8 3 6] passed,0.3473,0.4150,1.3189
+2206139,3,VERIFIED,verified,1,not tested (no independent digit recording),0.3472,0.1824,1.2057
+2206140,3,VERIFIED,verified,1,not tested (no independent digit recording),0.3685,0.3441,0.8004
+2206141,4,VERIFIED,verified,1,[1 2 3] passed,0.1310,0.1470,0.6327
+2206142,3,VERIFIED,verified,1,[1 2 2] passed,0.2986,0.5537,1.4245
+2206143,3,VERIFIED,verified,1,not tested (no independent digit recording),0.3197,0.4664,1.2664
+2206144,6,VERIFIED,verified,1,not tested (no independent digit recording),0.4809,0.4783,1.4313
+2206145,3,REPLAY,challenge,0,[0 0 2] FAILED,0.3876,0.4739,0.7791
+2206146,3,VERIFIED,verified,1,[3 1 8] passed,0.2827,0.2415,1.2687
+2206147,4,VERIFIED,verified,1,[5 0 5] passed,0.0521,0.1668,0.2590
+2206148,3,VERIFIED,verified,1,not tested (no independent digit recording),0.1471,0.3396,0.9215
+2206149,3,VERIFIED,verified,1,not tested (no independent digit recording),0.1454,0.1397,0.5266
+2206150,4,RETRY,phrase,0,not tested (no independent digit recording),-0.0121,0.0535,-0.0774
+2206151,3,VERIFIED,verified,1,[9 4 9] passed,0.3936,0.4764,1.2986
+2206152,3,VERIFIED,verified,1,not tested (no independent digit recording),0.2421,0.2117,0.6556
+2206153,3,VERIFIED,verified,1,not tested (no independent digit recording),0.2068,0.2981,1.0236
+2206154,3,VERIFIED,verified,1,[3 8 9] passed,0.2807,0.4217,1.4053
+2206156,3,VERIFIED,verified,1,not tested (no independent digit recording),0.3388,0.5654,1.5672
+2206157,3,VERIFIED,verified,1,[9 6 5] passed,0.2430,0.2833,0.9658
+2206158,3,VERIFIED,verified,1,[3 4 5] passed,0.3703,0.2862,1.2398
+2206159,6,VERIFIED,verified,1,not tested (no independent digit recording),0.5319,0.5092,1.2194
+2206160,3,VERIFIED,verified,1,[5 7 1] passed,0.3062,0.3530,1.2292
+2206161,3,VERIFIED,verified,1,[4 5 4] passed,0.5183,0.7731,1.8128
+2206162,3,VERIFIED,verified,1,[0 6 7] passed,0.3879,0.4623,1.0865
+2206163,3,VERIFIED,verified,1,[1 4 5] passed,0.2981,0.3380,1.0331
+2206164,3,VERIFIED,verified,1,[7 9 1] passed,0.7290,0.7708,1.7755

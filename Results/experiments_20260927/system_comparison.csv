@@ -1,0 +1,5 @@
+Variant,Split,Mode,Status,GenuineAttempts,ImpostorAttempts,GenuineAccepted,FalseAccepted,GenuineAcceptance,Top1Accuracy,FAR,FRR,WSAR,ClosedSetWrongAccepted,ClosedSetWSAR,CorrectClaimIdentityErrors,ModeLabel
+current_dsp,final_test,ID+Name,measured,31,930,30,0,0.967741935483871,0.935483870967742,0,0.032258064516129,0,0,0,0,ID-first fallback
+existing_policy,final_test,ID+Name,measured,31,930,30,0,0.967741935483871,NaN,0,0.032258064516129,0,0,0,NaN,Preserved legacy policy
+final_selected,final_test,ID+Name,measured,31,930,30,0,0.967741935483871,0.935483870967742,0,0.032258064516129,0,0,0,0,ID-first fallback
+senior_baseline,unavailable,ID+Name,unavailable: original senior implementation/corpus absent,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,NaN,Unavailable senior baseline

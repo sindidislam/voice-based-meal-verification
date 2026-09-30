@@ -1,0 +1,3 @@
+StudentID,StudentName,Date,Time,Meal,Method,NameDistance,CouponDistance,Margin,IDDistance,IDMargin,NameMargin
+2206147,S M Sindid Islam Mahodi,2026-09-28,16:02:30,Lunch,Voice-ID+NAME,24.1759,,1.3847,30.0533,1.0023,1.5711
+2206147,S M Sindid Islam Mahodi,2026-09-28,21:11:28,Dinner,Voice-ID+NAME,27.5467342879708,,1.24415050288132,33.7004001115601,1.02031676649298,1.37328118751036

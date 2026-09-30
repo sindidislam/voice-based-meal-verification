@@ -1,0 +1,964 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EEE 312 DSP Lab — Voice Meal Verification System Manual & Technical Reference (v4 Update)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #0b1520;
+      --bg-sidebar: #070e15;
+      --surface-card: #11202e;
+      --surface-elevated: #162b3d;
+      --border-subtle: rgba(140, 200, 240, 0.14);
+      --border-focus: rgba(0, 210, 255, 0.4);
+      --text-main: #f0f6fa;
+      --text-muted: #8ba2b5;
+      --accent-cyan: #38ef7d;
+      --accent-blue: #00d2ff;
+      --accent-amber: #f6c90e;
+      --accent-red: #ff4757;
+      --font-heading: 'Outfit', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg-main);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.65;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar Navigation */
+    aside.sidebar {
+      width: 320px;
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border-subtle);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .sidebar-brand {
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .sidebar-brand h2 {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      color: #fff;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sidebar-brand p {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .nav-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .nav-label {
+      font-family: var(--font-code);
+      font-size: 10.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--accent-blue);
+      margin-bottom: 6px;
+      padding-left: 8px;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover {
+      background: var(--surface-card);
+      color: #fff;
+      transform: translateX(3px);
+    }
+    .nav-link.active {
+      background: rgba(0, 210, 255, 0.12);
+      color: var(--accent-blue);
+      font-weight: 600;
+      border-left: 3px solid var(--accent-blue);
+    }
+
+    /* Main Content Area */
+    main.content {
+      flex: 1;
+      padding: 40px 60px;
+      max-width: 1160px;
+      margin: 0 auto;
+      overflow-x: hidden;
+    }
+
+    /* Typography & Structural Elements */
+    header.doc-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .badge {
+      display: inline-block;
+      font-family: var(--font-code);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 999px;
+      margin-right: 8px;
+      margin-bottom: 10px;
+    }
+    .badge-primary { background: rgba(0, 210, 255, 0.15); color: var(--accent-blue); border: 1px solid rgba(0, 210, 255, 0.35); }
+    .badge-update { background: rgba(246, 201, 14, 0.15); color: var(--accent-amber); border: 1px solid rgba(246, 201, 14, 0.4); }
+    .badge-success { background: rgba(56, 239, 125, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 239, 125, 0.35); }
+
+    h1.doc-title {
+      font-family: var(--font-heading);
+      font-size: 34px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+    .doc-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    section.manual-section {
+      margin-bottom: 56px;
+      scroll-margin-top: 30px;
+    }
+    h2.section-heading {
+      font-family: var(--font-heading);
+      font-size: 22px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    h3.sub-heading {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--accent-blue);
+      margin-top: 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    p { margin-bottom: 14px; font-size: 14.5px; }
+
+    /* Cards & Layouts */
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 16px 0; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0; }
+    .card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    .card:hover {
+      border-color: var(--border-focus);
+    }
+    .card-highlight {
+      border-left: 4px solid var(--accent-cyan);
+      background: rgba(56, 239, 125, 0.03);
+    }
+    .card-warning {
+      border-left: 4px solid var(--accent-amber);
+      background: rgba(246, 201, 14, 0.03);
+    }
+    .card-danger {
+      border-left: 4px solid var(--accent-red);
+      background: rgba(255, 71, 87, 0.03);
+    }
+
+    /* Technical Callout Boxes */
+    .callout {
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin: 18px 0;
+      font-size: 14px;
+    }
+    .callout-dsp {
+      background: rgba(0, 210, 255, 0.06);
+      border: 1px solid rgba(0, 210, 255, 0.25);
+      border-left: 4px solid var(--accent-blue);
+    }
+    .callout-theory {
+      background: rgba(56, 239, 125, 0.05);
+      border: 1px solid rgba(56, 239, 125, 0.25);
+      border-left: 4px solid var(--accent-cyan);
+    }
+
+    /* Math Formulas */
+    .formula-block {
+      background: #060b10;
+      border: 1px solid rgba(120, 200, 240, 0.2);
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin: 14px 0;
+      font-family: var(--font-code);
+      font-size: 13.5px;
+      color: #79d7ff;
+      overflow-x: auto;
+    }
+
+    /* Custom Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      font-size: 13.5px;
+    }
+    table.data-table th {
+      background: var(--surface-elevated);
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 14px;
+      border: 1px solid var(--border-subtle);
+      text-align: left;
+    }
+    table.data-table td {
+      padding: 9px 14px;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      background: var(--surface-card);
+    }
+    table.data-table tr:nth-child(even) td {
+      background: rgba(22, 43, 61, 0.35);
+    }
+
+    /* Interactive Buttons / Code Tags */
+    code, kbd {
+      font-family: var(--font-code);
+      font-size: 12.5px;
+      background: rgba(0, 210, 255, 0.1);
+      color: var(--accent-blue);
+      padding: 2px 7px;
+      border-radius: 5px;
+      border: 1px solid rgba(0, 210, 255, 0.2);
+    }
+    kbd {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.2);
+      font-weight: 600;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.4);
+    }
+
+    /* Steps list */
+    .step-item {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      background: var(--surface-card);
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+    .step-badge {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--accent-blue);
+      color: #000;
+      font-family: var(--font-code);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+    .step-text p {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body><aside style="margin:16px;padding:14px;border:2px solid #bd8700;background:#fff5d6;color:#222;font:16px/1.5 sans-serif"><strong>Current workflow, 28 September 2026:</strong> Coupons and manual-entry access are retired. In Admin, unlock the current month, search/select IDs or mark rows, then assign. Both ID and name recordings must independently verify the same student. Open the GUI <strong>Improvements</strong> tab for equations, sources and the stricter rule's acceptance tradeoff. Older workflow descriptions and measurements below are historical; see <a href="README_CURRENT.md">current instructions</a>.</aside>
+
+  <!-- Navigation Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>🎙️ Voice Meal Kiosk</h2>
+      <p>EEE 312 DSP I Lab • BUET<br>System Manual & Theory Guide</p>
+    </div>
+
+    <nav class="nav-group">
+      <div class="nav-label">Academic Foundations</div>
+      <a href="#section-obe" class="nav-link">🎓 Course Outcomes & POs</a>
+      <a href="#section-complex" class="nav-link">⚙️ Complex Engineering Problem</a>
+
+      <div class="nav-label" style="margin-top: 14px;">DSP Theory & Rationale</div>
+      <a href="#section-resampling" class="nav-link">1. Rational Resampling & AGC</a>
+      <a href="#section-subtraction" class="nav-link">2. Spectral Subtraction (Boll)</a>
+      <a href="#section-endpoint" class="nav-link">3. STE & ZCR Endpointing</a>
+      <a href="#section-liveness" class="nav-link">4. Low-Frequency Liveness</a>
+      <a href="#section-mfcc" class="nav-link">5. 39-D MFCC vs DFT</a>
+      <a href="#section-dtw" class="nav-link">6. Dynamic Time Warping (DTW)</a>
+
+      <div class="nav-label" style="margin-top: 14px;">Version 4 Architecture</div>
+      <a href="#section-v4-update" class="nav-link">🔄 What Changed in v4</a>
+      <a href="#section-gate5" class="nav-link">🔑 Single Source of Truth (Gate 5)</a>
+
+      <div class="nav-label" style="margin-top: 14px;">Control & Button Manual</div>
+      <a href="#section-kiosk-ui" class="nav-link">🖥️ Public Counter Kiosk Tab</a>
+      <a href="#section-admin-ui" class="nav-link">🔒 Authenticated Admin Tab</a>
+      <a href="#section-enrol-ui" class="nav-link">🎙️ Student Enrollment Tab</a>
+      <a href="#section-explorer-ui" class="nav-link">📈 DSP Explorer & Evaluation</a>
+
+      <div class="nav-label" style="margin-top: 14px;">SOP & Operations</div>
+      <a href="#section-sop-patron" class="nav-link">👤 Student Operating Steps</a>
+      <a href="#section-sop-admin" class="nav-link">🛡️ Admin Monthly Token SOP</a>
+      <a href="#section-diagnostics" class="nav-link">🔧 Troubleshooting & Recovery</a>
+      <a href="#section-roadmap" class="nav-link">🚀 Next Tasks & Roadmap</a>
+      <a href="#section-ethics" class="nav-link">⚖️ Biometric Ethics & Integrity</a>
+    </nav>
+  </aside>
+
+  <!-- Main Content Body -->
+  <main class="content">
+
+    <header class="doc-header">
+      <span class="badge badge-primary">EEE 312 Sessional Project</span>
+      <span class="badge badge-update">Milestone: Version 4 Update</span>
+      <span class="badge badge-success">15/15 Regression Green</span>
+      <h1 class="doc-title">Voice-Based Hall Dining Meal Verification System</h1>
+      <p class="doc-subtitle">
+        Comprehensive Technical Reference, Pedagogical Alignment, DSP Mathematical Formulations, and Button-by-Button Operation Manual.
+      </p>
+    </header>
+
+    <!-- SECTION 1: OBE & CO-PO MAPPING -->
+    <section class="manual-section" id="section-obe">
+      <h2 class="section-heading"><span>🎓</span> Course Curriculum & Outcome-Based Education (OBE) Mapping</h2>
+      <p>
+        This design project is conducted as an integral compulsory component of <strong>EEE 312: Digital Signal Processing I Laboratory</strong> at the Department of Electrical & Electronic Engineering, Bangladesh University of Engineering and Technology (BUET). The project synthesizes theoretical signal processing foundations from <em>EEE 311</em> and applies them to an open-ended communal dining automation problem.
+      </p>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Course Outcome (CO)</th>
+            <th>Program Outcome (PO)</th>
+            <th>Taxonomy Domain & Level</th>
+            <th>Project Implementation & Assessment Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>CO1:</strong> Understand digital signal processing algorithms and use programming software to implement them.</td>
+            <td><strong>PO(a)</strong> Engineering Knowledge<br><strong>PO(e)</strong> Modern Tool Usage</td>
+            <td>P1, P4 (Psychomotor: Perception & Mechanism)</td>
+            <td>Implementation in MATLAB R2024a: Multirate FIR filtering (80/441), STFT spectral noise subtraction, 24-channel Mel filterbank, DCT-II, and Dynamic Time Warping. Assessed via test scripts.</td>
+          </tr>
+          <tr>
+            <td><strong>CO2:</strong> Compare theoretical and experimental results of digital signal processing algorithms.</td>
+            <td><strong>PO(d)</strong> Investigation</td>
+            <td>C5 (Cognitive: Synthesis)</td>
+            <td>Experimental benchmarking: Empirical noise attenuation (42% error reduction), Kaiser filter stopband alias ($0.0252\%$), and verification ROC curves comparing MFCC and DFT EER operating points.</td>
+          </tr>
+          <tr>
+            <td><strong>CO3:</strong> Design digital filters and systems such that specified performance characteristics are attained.</td>
+            <td><strong>PO(c)</strong> Design/Development<br><strong>PO(i)</strong> Team Work</td>
+            <td>C6 (Cognitive: Evaluation)<br>A3 (Affective: Valuing)</td>
+            <td>Synthesis of 17,641-tap anti-aliasing Kaiser FIR lowpass filter ($>60\text{ dB}$ stopband attenuation), calibrated DTW acceptance threshold ($\theta = 37.1585$), and runner-up margin separation ($\ge 1.20$).</td>
+          </tr>
+          <tr>
+            <td><strong>CO4:</strong> Design a digital system to solve a relevant problem considering public health, safety, societal, and environmental needs.</td>
+            <td><strong>PO(c)</strong> Problem Solving<br><strong>PO(l)</strong> Life-long Learning</td>
+            <td>P7 (Psychomotor: Organization)</td>
+            <td>Elimination of shared biometric fingerprint contact surfaces (touchless voice interface) to prevent tactile pathogen transmission; low-power edge computing minimizing electronic waste and carbon footprint.</td>
+          </tr>
+          <tr>
+            <td><strong>CO5:</strong> Demonstrate application of ethical principles and practices, and evaluate peer team members ethically.</td>
+            <td><strong>PO(h)</strong> Ethics</td>
+            <td>A3 (Affective: Valuing)</td>
+            <td>Biometric data protection: voice templates decoupled from student identity, local memory wiping upon administrative lock, and structured peer assessment surveys.</td>
+          </tr>
+          <tr>
+            <td><strong>CO6:</strong> Work effectively as an individual and team member toward successful project completion.</td>
+            <td><strong>PO(i)</strong> Individual & Team<br><strong>PO(j)</strong> Communication</td>
+            <td>P4 (Mechanism)<br>A3 (Valuing)</td>
+            <td>Modular division of labour (DSP core, GUI kiosk, database schema), collaborative git versioning, peer evaluation, and 10-minute technical update presentation.</td>
+          </tr>
+          <tr>
+            <td><strong>CO7:</strong> Report effectively on the design done for CO4 with presentation, user-manual, and detailed report.</td>
+            <td><strong>PO(j)</strong> Communication</td>
+            <td>A3 (Affective: Valuing)</td>
+            <td>Delivery of this comprehensive HTML User & Administrator Manual, interactive slide deck presentation (<code class="code-tag">PROJECT_PRESENTATION.html</code>), and documented MATLAB APIs.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 2: COMPLEX ENGINEERING ATTRIBUTES -->
+    <section class="manual-section" id="section-complex">
+      <h2 class="section-heading"><span>⚙️</span> Complex Engineering Problem Solving (WP1–WP7) & Activities (EA1–EA5)</h2>
+      <p>
+        The university hall dining hall verification challenge satisfies all criteria of an ABET/IEB Complex Engineering Problem:
+      </p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">Wide Range of Conflicting Requirements (WP1)</h3>
+          <p style="font-size:13.5px;">
+            High noise suppression is required due to loud mess ambient sounds ($45–65\text{ dB SPL}$), yet aggressive spectral filtering risks distorting crucial formant frequencies ($F_1, F_2$) required to distinguish phonemes. Real-time operation requires $< 200\text{ ms}$ latency on low-cost university PCs while maintaining high template discrimination.
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">Depth of Knowledge Required (WP2, K1–K5)</h3>
+          <p style="font-size:13.5px;">
+            Cannot be resolved by trivial heuristics. Requires multirate sampling theory (Oppenheim Ch. 4), discrete-time Fourier analysis (Proakis Ch. 11), psychophysical hearing models (Mel scale), and dynamic programming algorithms.
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">Societal, Health & Hygiene Impact (WP3, WP5)</h3>
+          <p style="font-size:13.5px;">
+            Traditional tactile methods (fingerprint pads, RFID cards, paper meal chits) suffer from severe hygiene deficits during peak dining rush hours and are prone to proxy fraud. The touchless acoustic voice interface addresses public health hygiene directly.
+          </p>
+        </div>
+        <div class="card">
+          <h3 class="sub-heading" style="margin-top:0;">Non-Obvious Engineering Synthesis (WP4)</h3>
+          <p style="font-size:13.5px;">
+            Speech length varies non-linearly between utterances. Simple Euclidean distance or template matching fails completely. Dynamic Time Warping (DTW) with Sakoe-Chiba band constraints was synthesized to resolve temporal variance.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: DSP THEORY & FORMULATIONS -->
+    <section class="manual-section" id="section-theory">
+      <h2 class="section-heading"><span>📐</span> Theoretical Formulations & Engineering Justifications</h2>
+      <p>
+        All signal processing operations adhere strictly to classical discrete-time linear systems theory as documented in <em>Discrete-Time Signal Processing</em> by Alan V. Oppenheim and <em>Digital Signal Processing</em> by John G. Proakis.
+      </p>
+
+      <!-- Resampling & AGC -->
+      <div class="card" id="section-resampling">
+        <h3 class="sub-heading">1. Rational Multirate Resampling & Automatic Gain Control (AGC)</h3>
+        <p>
+          Microphone inputs are digitized by operating system hardware at $f_{s1} = 44.1\text{ kHz}$. Speech information required for speaker identity is bandlimited below $4\text{ kHz}$. Transmitting 44.1 kHz arrays increases computational complexity by over 500%.
+        </p>
+        <div class="formula-block">
+          Rational Ratio: L / M = 80 / 441  &rarr;  44100 Hz &times; (80 / 441) = 8000 Hz<br>
+          Filter Specification: 17,641-tap Kaiser-windowed FIR Lowpass Filter<br>
+          Cutoff Frequency: f_c = 3600 Hz | Stopband Rejection: > 60 dB
+        </div>
+        <p style="font-size:13.5px;">
+          <strong>Automatic Gain Control (AGC):</strong> Student volume varies based on posture and distance. The system computes signal RMS and normalizes to a calibrated target of $0.0500$:
+        </p>
+        <div class="formula-block">
+          RMS_actual = &radic;( (1/N) &sum;_{n=1}^N x&sup2;[n] )<br>
+          x_norm[n] = x[n] &bull; (0.0500 / max(RMS_actual, 1.0&times;10&supmin;&sup5;))
+        </div>
+        <p style="font-size:13px; color: var(--text-muted);">
+          <em>Engineering Rationale:</em> If $RMS_{actual} < 10^{-5}$, the frame contains pure silence; the gain limiter refuses amplification to prevent scaling microphone floor noise.
+        </p>
+      </div>
+
+      <!-- Spectral Subtraction -->
+      <div class="card" id="section-subtraction">
+        <h3 class="sub-heading">2. Stationary Spectral Noise Subtraction (Boll's Algorithm)</h3>
+        <p>
+          Acoustic canteen noise (fans, distant chatter, refrigeration) is stationary over short intervals ($0.5\text{ s}$). During the initial 0.5 s silent lead-in, the noise power spectrum $\mu_{\text{noise}}(k)$ is estimated across $M_{\text{lead}}$ Short-Time Fourier Transform (STFT) frames:
+        </p>
+        <div class="formula-block">
+          &mu;_noise(k) = (1 / M_lead) &sum;_{m=1}^{M_lead} |X_lead(m, k)|&sup2;<br>
+          |S_hat(m, k)| = max( |Y(m, k)| - &alpha; &bull; &radic;(&mu;_noise(k)),  &beta; &bull; |Y(m, k)| )
+        </div>
+        <p style="font-size:13.5px;">
+          Where $\alpha = 2.0$ is the over-subtraction factor designed to remove noise peaks, and $\beta = 0.02$ is the spectral flooring parameter preventing mathematical negative energy and suppressing artificial "musical noise". Empirical error power decreases from $0.02983$ to $0.01741$ (a <strong>42% reduction</strong>).
+        </p>
+      </div>
+
+      <!-- STE & ZCR Endpointing -->
+      <div class="card" id="section-endpoint">
+        <h3 class="sub-heading">3. Hybrid Short-Time Energy (STE) & Zero Crossing Rate (ZCR) Endpointing</h3>
+        <p>
+          Accurate temporal segmentation separates true speech from breathing and room silence:
+        </p>
+        <div class="formula-block">
+          STE:  E[m] = &sum;_{n} (x[n] &bull; w[m - n])&sup2;<br>
+          ZCR:  Z[m] = 0.5 &sum;_{n} | sgn(x[n]) - sgn(x[n - 1]) | &bull; w[m - n]
+        </div>
+        <p style="font-size:13.5px;">
+          A dual-threshold state machine detects speech onset when $E[m] > T_{\text{high}}$ (high energy vowels) and expands boundaries backward and forward to $T_{\text{low}}$ based on high zero-crossing rates characteristic of unvoiced consonants (/s/, /t/, /k/).
+        </p>
+      </div>
+
+      <!-- Low-Frequency Liveness Ratio -->
+      <div class="card" id="section-liveness">
+        <h3 class="sub-heading">4. Low-Frequency Liveness Ratio (Anti-Spoofing Physical Biometrics)</h3>
+        <p>
+          To prevent synthetic playback attacks (e.g. playing a pre-recorded WAV file from a smartphone loudspeaker), the system exploits the fundamental physics of miniature acoustic transducers. Human male vocal cords vibrate at $85–180\text{ Hz}$ and female cords at $165–255\text{ Hz}$, transmitting substantial sub-200 Hz energy through chest resonance. In contrast, smartphone micro-speakers have steep acoustic high-pass filters rolling off sharply below $250–300\text{ Hz}$.
+        </p>
+        <div class="formula-block">
+          Ratio_live = ( &sum;_{0 &le; f &le; 200 Hz} |X(f)|&sup2; ) / ( &sum;_{0 &le; f &le; 4000 Hz} |X(f)|&sup2; )<br>
+          Rule: If Ratio_live < &theta;_live &rarr; Reject transaction immediately as synthetic loudspeaker replay.
+        </div>
+      </div>
+
+      <!-- MFCC vs DFT -->
+      <div class="card" id="section-mfcc">
+        <h3 class="sub-heading">5. 39-Dimensional Mel-Frequency Cepstral Coefficients (MFCC)</h3>
+        <p>
+          Features are extracted using $25\text{ ms}$ Hamming windows with $10\text{ ms}$ overlap:
+        </p>
+        <ol style="padding-left: 20px; font-size:13.5px;">
+          <li>FFT power spectrum mapped onto 24 triangular bandpass filters spaced along the non-linear Mel scale:
+            <div class="formula-block" style="margin:6px 0;">Mel(f) = 2595 &bull; log10( 1 + f / 700 )</div>
+          </li>
+          <li>Logarithmic compression of filterbank energies simulating auditory loudness perception.</li>
+          <li>Discrete Cosine Transform (DCT-II) decorrelating filter energies into 13 cepstral coefficients ($c_0$ to $c_{12}$).</li>
+          <li>Append first temporal derivatives ($\Delta$, velocity) and second temporal derivatives ($\Delta\Delta$, acceleration) yielding a robust <strong>39-dimensional feature vector per frame</strong>.</li>
+        </ol>
+      </div>
+
+      <!-- Dynamic Time Warping -->
+      <div class="card" id="section-dtw">
+        <h3 class="sub-heading">6. Dynamic Time Warping (DTW) with Margin Ratio Separation</h3>
+        <p>
+          Speech tempo fluctuates dynamically. DTW calculates the optimal warping path between test matrix $\mathbf{C} \in \mathbb{R}^{39 \times N}$ and template $\mathbf{R} \in \mathbb{R}^{39 \times M}$:
+        </p>
+        <div class="formula-block">
+          Local Distance:  d(i, j) = || c_i - r_j ||_2<br>
+          Cumulative Cost: &gamma;(i, j) = d(i, j) + min{ &gamma;(i-1, j), &gamma;(i, j-1), &gamma;(i-1, j-1) }<br>
+          Sakoe-Chiba Band Constraint: | i - j | &le; R  (prevents non-physical temporal stretching)
+        </div>
+        <p style="font-size:13.5px;">
+          <strong>Dual Decision Metric:</strong> A match is accepted only if:
+          <br>1. Minimum DTW distance satisfies $D_1 \le 37.1585$.
+          <br>2. Runner-up separation margin satisfies $D_2 / D_1 \ge 1.20$.
+        </p>
+      </div>
+    </section>
+
+    <!-- SECTION 4: VERSION 4 ARCHITECTURAL UPDATE -->
+    <section class="manual-section" id="section-v4-update">
+      <h2 class="section-heading"><span>🔄</span> Version 4 Architectural Updates: Single Source of Truth</h2>
+      <p>
+        In response to operational testing of Version 3, Version 4 introduces crucial decoupling of dining fees and enrollment credentials:
+      </p>
+
+      <div class="grid-2">
+        <div class="card card-danger">
+          <h4 style="color:var(--accent-red); font-size:15px; margin-bottom:8px;">Deficiencies in Version 3</h4>
+          <ul style="font-size:13px; color:var(--text-muted); padding-left:18px;">
+            <li><strong>Redundant Static File Checking:</strong> Both <code class="code-tag">verify_meal_workflow.m</code> and <code class="code-tag">manual_entry_workflow.m</code> looked up a static file <code class="code-tag">Train/ID/&lt;id&gt;/code.txt</code> before validating against the monthly registry. If an admin assigned a new month's coupon, the static text file caused desynchronization and false refusals.</li>
+            <li><strong>Illogical Enrollment Requirement:</strong> When enrolling a new student's voice, the admin was forced to enter a 6-digit coupon. Since coupons rotate monthly, recording a coupon at voice enrollment created technical confusion.</li>
+            <li><strong>Rigid Audio Take Import:</strong> Pre-recorded WAV files could only be imported by pointing to a complete folder, preventing single-take updates.</li>
+          </ul>
+        </div>
+
+        <div class="card card-highlight">
+          <h4 style="color:var(--accent-cyan); font-size:15px; margin-bottom:8px;">Version 4 Solutions Deployed</h4>
+          <ul style="font-size:13px; color:var(--text-main); padding-left:18px;">
+            <li><strong>Single Source of Truth (Gate 5):</strong> All static <code class="code-tag">code.txt</code> file checks have been completely removed. Dynamic monthly coupon tokens are validated solely against <code class="code-tag">MonthlyCouponRegistry.csv</code> via <code class="code-tag">consume_monthly_coupon</code>.</li>
+            <li><strong>Clean ID + Name Voice Enrollment:</strong> The coupon edit field and button have been removed from the New Enroll UI. Enrollment captures acoustic profiles for ID and Name only; coupons are assigned dynamically in Admin.</li>
+            <li><strong>Flexible File Picker:</strong> Added <code class="code-tag">enrol_import_files</code> allowing multi-selection of individual <code class="code-tag">.wav</code> takes via file dialog alongside existing folder import.</li>
+            <li><strong>Dedicated Regression Suite:</strong> Added <code class="code-tag">verify_coupon_registry_gate.m</code> guaranteeing 100% Gate 5 integrity.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 5: BUTTON-BY-BUTTON REFERENCE -->
+    <section class="manual-section" id="section-kiosk-ui">
+      <h2 class="section-heading"><span>🖥️</span> Comprehensive Button-by-Button & Control Reference Guide</h2>
+      <p>
+        A complete functional manual describing every interactive graphical control across the user interface.
+      </p>
+
+      <!-- Kiosk Tab -->
+      <h3 class="sub-heading">Tab 1: Public Dining Counter Kiosk ("Verify Meal")</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>UI Control & Label</th>
+            <th>MATLAB Object / Tag</th>
+            <th>Operator Action</th>
+            <th>Internal Function & Callback Workflow</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>Record and Verify</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Press once when patron approaches counter.</td>
+            <td>Initiates a visual 3-2-1 countdown, records 5 seconds of audio (0.5s silence + 4.5s speech), executes 5-gate pipeline (<code class="code-tag">verify_meal_workflow.m</code>), and updates counter status display.</td>
+          </tr>
+          <tr>
+            <td><kbd>Test microphone</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Press during counter opening setup.</td>
+            <td>Records a 1-second calibration sample. Computes peak amplitude and RMS level. Prints diagnostics to counter status to confirm hardware microphone gain.</td>
+          </tr>
+          <tr>
+            <td><kbd>Manual entry</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Press if voice matching fails after 2 tries.</td>
+            <td>Reads typed student ID from fallback field. Executes <code class="code-tag">manual_entry_workflow.m</code>. Checks student existence, meal window hours, and consumes monthly coupon if unpaid.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">If voice matching fails: type ID/name</code></td>
+            <td><code class="code-tag">uieditfield</code></td>
+            <td>Type 7-digit student ID (e.g. 2206147).</td>
+            <td>Accepts alphanumeric student identification string. Does not display student roster to maintain privacy.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">6-digit coupon code</code></td>
+            <td><code class="code-tag">uieditfield</code></td>
+            <td>Enter dynamic coupon token if required.</td>
+            <td>Required only for the student's first meal of a new calendar month. Validated against the admin registry.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">Counter Status Display</code></td>
+            <td><code class="code-tag">uitextarea</code></td>
+            <td>Read verification decision.</td>
+            <td>Displays real-time transaction state: audio quality, spoken ID match, monthly fee entitlement, and green <strong style="color:var(--accent-cyan);">SERVE</strong> or red <strong style="color:var(--accent-red);">REFUSED</strong> decision.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Admin Tab -->
+      <h3 class="sub-heading" id="section-admin-ui">Tab 2: Authenticated Administration Workspace ("Admin")</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>UI Control & Label</th>
+            <th>Control Type</th>
+            <th>Admin Purpose</th>
+            <th>Underlying System Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>Unlock / meal log</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Authenticate admin session.</td>
+            <td>Validates ID and Password. On success, reads <code class="code-tag">MealLog.csv</code> using strict string types (<code class="code-tag">setvartype 'Student','string'</code>) and renders full meal history in admin table.</td>
+          </tr>
+          <tr>
+            <td><kbd>Monthly payments</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>View dining fee status.</td>
+            <td>Reads <code class="code-tag">MonthlyFeeEntitlement.csv</code> and populates table showing which students have unlocked the current calendar month.</td>
+          </tr>
+          <tr>
+            <td><kbd>Coupon registry</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Inspect coupon tokens.</td>
+            <td>Displays <code class="code-tag">MonthlyCouponRegistry.csv</code> listing assigned codes, active months, and consumed timestamps.</td>
+          </tr>
+          <tr>
+            <td><kbd>Attempt log</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Audit transaction failures.</td>
+            <td>Loads <code class="code-tag">MealAttemptLog.csv</code> to inspect refused attempts, distance margins, and duplicate meal violations.</td>
+          </tr>
+          <tr>
+            <td><kbd>Corpus audit</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Diagnose voice database.</td>
+            <td>Renders <code class="code-tag">Results/corpus_diagnostics.csv</code> showing SNR, RMS, and usable take counts per enrolled student ID.</td>
+          </tr>
+          <tr>
+            <td><kbd>Assign for current month</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Issue dining token.</td>
+            <td>Takes typed Student ID and 6-digit code; executes <code class="code-tag">assign_monthly_coupon.m</code> to register token for current month. Rejects duplicate assignments.</td>
+          </tr>
+          <tr>
+            <td><kbd>Open DSP workspace</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Open engineering tabs.</td>
+            <td>Constructs the private New Enroll, DSP Explorer, and Evaluation tabs in memory. Accessible only to authenticated admins.</td>
+          </tr>
+          <tr>
+            <td><kbd>Lock</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Secure workstation.</td>
+            <td>Clears all sensitive table displays, resets credential fields, and physically <em>deletes</em> the private DSP workspace tabs from RAM.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Enrollment Tab -->
+      <h3 class="sub-heading" id="section-enrol-ui">Tab 3: Student Voice Enrollment Workspace (Admin Only)</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>UI Control & Label</th>
+            <th>Type</th>
+            <th>Function in Version 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><kbd>New Enroll (automated)</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Guides student through 3 Spoken ID takes and 3 Spoken Name takes. Validates takes against strict RMS and duration criteria via <code class="code-tag">assess_recording_quality.m</code>. Saves templates to <code class="code-tag">Train/ID</code> and <code class="code-tag">Train/Name</code>.</td>
+          </tr>
+          <tr>
+            <td><kbd>Save take</kbd> / <kbd>Discard take</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Manual enrollment fallback buttons allowing the admin to inspect quality scores and selectively keep or discard individual takes.</td>
+          </tr>
+          <tr>
+            <td><kbd>Reload template cache</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Clears the in-memory feature cache in <code class="code-tag">find_best_voice_match.m</code>, forcing the system to reload newly recorded WAV files immediately.</td>
+          </tr>
+          <tr>
+            <td><kbd>Audit this student</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Checks disk folders for the typed Student ID, reporting how many valid ID and Name templates are enrolled.</td>
+          </tr>
+          <tr>
+            <td><kbd>Import from folder...</kbd></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Prompts directory picker (<code class="code-tag">uigetdir</code>) to batch import a folder of pre-recorded WAV files for the selected student and phrase.</td>
+          </tr>
+          <tr>
+            <td><kbd>Import .wav file(s)...</kbd> <span class="badge badge-update">NEW IN v4</span></td>
+            <td><code class="code-tag">uibutton</code></td>
+            <td>Opens file dialog with <code class="code-tag">MultiSelect = on</code>. Allows picking specific individual WAV takes. Automatically validates quality, resamples to 8 kHz, converts to mono, and numbers takes sequentially.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- DSP Explorer & Evaluation -->
+      <h3 class="sub-heading" id="section-explorer-ui">Tabs 4 & 5: DSP Explorer & Evaluation Workspace (Admin Only)</h3>
+      <div class="grid-2">
+        <div class="card">
+          <h4>📈 DSP Explorer Tab</h4>
+          <p style="font-size:13px; color:var(--text-muted);">
+            Enables stage-by-stage visualization of active signals:
+          </p>
+          <ul style="font-size:12.5px; padding-left:18px;">
+            <li><strong>Source Dropdown:</strong> Select Synthesised Vowel, Enrolment File, or Live Microphone capture.</li>
+            <li><strong>Stage Dropdown:</strong> Choose from Stage 1 (Raw Audio), Stage 2 (8 kHz Resampled), Stage 3 (Noise Subtracted), Stage 4 (STE/ZCR Endpoints), Stage 5 (Liveness Spectrum), Stage 6 (MFCC Features), Stage 7 (DTW Warping Path vs Template).</li>
+            <li><kbd>Load</kbd> & <kbd>Show</kbd>: Renders time-domain waveforms, filterbank matrices, and cumulative cost matrices onto UI axes with path-safe labels.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>🧪 Evaluation Tab</h4>
+          <p style="font-size:13px; color:var(--text-muted);">
+            Conducts offline statistical accuracy experiments:
+          </p>
+          <ul style="font-size:12.5px; padding-left:18px;">
+            <li><strong>Experiment Dropdown:</strong> Run <code class="code-tag">verify_dsp_pipeline</code>, <code class="code-tag">diagnose_audio_corpus</code>, <code class="code-tag">calibrate_liveness_band</code>, <code class="code-tag">experiment_verification_accuracy</code> (MFCC / DFT sweeps), or <code class="code-tag">recalibrate_thresholds</code>.</li>
+            <li><kbd>Run experiment</kbd>: Executes benchmark script and logs CSV to <code class="code-tag">Results/</code>.</li>
+            <li><kbd>Show selected CSV</kbd>: Displays benchmark data in table with headline accuracy and operating figures.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 6: STANDARD OPERATING PROCEDURES (SOP) -->
+    <section class="manual-section" id="section-sop-patron">
+      <h2 class="section-heading"><span>📋</span> Standard Operating Procedures (SOP)</h2>
+
+      <h3 class="sub-heading">A. Normal User & Student Patron SOP</h3>
+      <div class="step-item">
+        <div class="step-badge">1</div>
+        <div class="step-text">
+          <h4>Approach Kiosk & Prepare</h4>
+          <p>Stand 15–30 cm from the microphone. Ensure face mask or scarf does not obstruct vocal sound path.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">2</div>
+        <div class="step-text">
+          <h4>Press "Record and Verify" & Observe 3-2-1 Countdown</h4>
+          <p>Press the button once. Watch the visual countdown (3... 2... 1...). <strong>Remain completely silent during the 0.5-second lead-in</strong> while the kiosk profiles room noise.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">3</div>
+        <div class="step-text">
+          <h4>Speak 7-Digit Student ID Naturally</h4>
+          <p>When the screen says <code>>>> SPEAK NOW! <<<</code>, speak your seven digits clearly at normal conversational volume (e.g. <em>"Two, Two, Zero, Six, One, Four, Seven"</em>).</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">4</div>
+        <div class="step-text">
+          <h4>Spoken Name Retry (If Prompted)</h4>
+          <p>If the ID distance is borderline, the kiosk will prompt you to speak your full enrolled name. Follow the same silent lead-in and speak clearly.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-badge">5</div>
+        <div class="step-text">
+          <h4>Monthly Dining Token Entry (First Visit of Calendar Month)</h4>
+          <p>If dining for the first time this month, enter the 6-digit coupon token provided by the administration into the coupon field. For all subsequent meals within 30 days, leave the coupon field empty.</p>
+        </div>
+      </div>
+
+      <h3 class="sub-heading" id="section-sop-admin" style="margin-top: 30px;">B. System Administrator SOP (Monthly Fee Distribution)</h3>
+      <ol style="padding-left: 20px; font-size:14px; line-height:1.8;">
+        <li>Log in to the <strong>Admin</strong> tab using authorized credentials (default demo: <code class="code-tag">admin / admin</code>; update in <code class="code-tag">dsp_parameters.m</code> prior to deployment).</li>
+        <li>Press <kbd>Unlock / meal log</kbd> to initiate administrative session.</li>
+        <li>To issue a token: In <strong>Assign coupon</strong>, enter the Student ID and enter a unique 6-digit code. Press <kbd>Assign for current month</kbd>. Provide this code to the student upon dining fee receipt.</li>
+        <li>To inspect records: Press <kbd>Coupon registry</kbd> to confirm which students have consumed tokens. Press <kbd>Monthly payments</kbd> to inspect active 30-day entitlements.</li>
+        <li><strong>CRITICAL:</strong> When leaving the counter, always press <kbd>Lock</kbd> to wipe memory caches and remove private workspaces.</li>
+      </ol>
+    </section>
+
+    <!-- SECTION 7: TROUBLESHOOTING -->
+    <section class="manual-section" id="section-diagnostics">
+      <h2 class="section-heading"><span>🔧</span> Troubleshooting & Diagnostic Guide</h2>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Observed Status / Error Prompt</th>
+            <th>Probable Technical Cause</th>
+            <th>Recommended Corrective Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code class="code-tag">REFUSED: Energy too low / empty recording</code></td>
+            <td>Microphone muted, wrong Windows default audio input, or disconnected jack.</td>
+            <td>Press <kbd>Test microphone</kbd>. Check Windows Settings &rarr; Sound &rarr; Input Device and verify microphone permissions are enabled for MATLAB.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">REFUSED: Synthetic replay or low liveness ratio</code></td>
+            <td>Mobile phone audio playback detected, or patron spoke with severe high-frequency whispering.</td>
+            <td>Instruct patron to speak naturally using authentic vocal fold phonation. Ensure acoustic path is unobstructed.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">REFUSED: Voice match distance 42.1 exceeds 37.15</code></td>
+            <td>High background cafeteria noise burst during speech, or patron spoke prematurely during 0.5s lead-in.</td>
+            <td>Remind student to wait for the <code>>>> SPEAK NOW! <<<</code> prompt before speaking. If failure repeats, use <kbd>Manual entry</kbd>.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">REFUSED: Dining service is closed at this time</code></td>
+            <td>Attempt made outside scheduled meal hours.</td>
+            <td>Verify system clock. Breakfast (07:00–09:30), Lunch (12:00–14:30), Dinner (19:00–21:30). Counter automatically opens when window arrives.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">REFUSED: Already served Lunch in this meal window</code></td>
+            <td>Duplicate serving violation. The student has already collected their meal for this service window.</td>
+            <td>No action required. Enforces the strict single-meal-per-patron hall rule.</td>
+          </tr>
+          <tr>
+            <td><code class="code-tag">REFUSED: Coupon 000000 is not assigned for 2026-09</code></td>
+            <td>Typo in 6-digit coupon token, or token was consumed previously.</td>
+            <td>Admin should verify <code class="code-tag">MonthlyCouponRegistry.csv</code> to confirm student's assigned monthly token.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- SECTION 8: ROADMAP & FUTURE TASKS -->
+    <section class="manual-section" id="section-roadmap">
+      <h2 class="section-heading"><span>🚀</span> Project Update Status & Next Tasks Roadmap</h2>
+      <div class="callout callout-dsp">
+        <strong>Mid-Project Evaluation Milestone:</strong> Version 4 represents the completion of Tasks 1, 2, and 3 of the engineering work plan. The system is fully operational, verified, and regression-green.
+      </div>
+
+      <div class="grid-2">
+        <div class="card card-highlight">
+          <h4 style="font-size:15px; color:var(--accent-cyan);">✅ Tasks Completed in Version 4 Milestone</h4>
+          <ul style="font-size:13px; line-height:1.7; padding-left:18px;">
+            <li><strong>Task 1:</strong> Materialized isolated <code class="code-tag">Final project v4</code> codebase tree.</li>
+            <li><strong>Task 2:</strong> Rerouted Gate 5 exclusively to dynamic monthly coupon registry; purged all static <code class="code-tag">code.txt</code> checks.</li>
+            <li><strong>Task 3:</strong> Streamlined New Enroll tab (ID + Name only, no coupon inputs) and added multi-file WAV take picker.</li>
+            <li><strong>Verification:</strong> Built and verified <code class="code-tag">verify_coupon_registry_gate.m</code>; all 5 regression suites pass 100%.</li>
+          </ul>
+        </div>
+
+        <div class="card card-warning">
+          <h4 style="font-size:15px; color:var(--accent-amber);">⏳ Next Tasks Planned for Final Submission</h4>
+          <ul style="font-size:13px; line-height:1.7; padding-left:18px;">
+            <li><strong>Task 4 (Acoustic Cue & Feedback):</strong> Synthesize a DSP-safe 880 Hz "go" beep that terminates <em>before</em> <code class="code-tag">record()</code> begins, coupled with a real-time non-intrusive VU audio level meter.</li>
+            <li><strong>Task 5 (DSP Explorer Stage 8):</strong> Implement 2D STFT spectrogram viewer with overlaid autocorrelation-based $F_0$ pitch contour and display-only noise-adaptive threshold recommendations.</li>
+            <li><strong>Task 6 (Admin Dashboard & Reports):</strong> Implement real-time serving KPI cards and automated one-click daily export to <code class="code-tag">DailyReport_YYYY-MM-DD.xlsx</code> and PDF audit summaries.</li>
+            <li><strong>Task 7 (Corpus Expansion):</strong> Expand speech database to multi-resident hall scale for final exhibition.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 9: ETHICS & INTEGRITY -->
+    <section class="manual-section" id="section-ethics">
+      <h2 class="section-heading"><span>⚖️</span> Declaration of Academic Integrity & Biometric Ethics</h2>
+      <div class="card">
+        <h3 class="sub-heading" style="margin-top:0;">Adherence to IEEE Code of Ethics & Institutional Policy</h3>
+        <p style="font-size:13.5px;">
+          The development of this project adheres strictly to Article 1.2 of the <em>IEEE Code of Ethics</em> regarding privacy, data integrity, and technological transparency:
+        </p>
+        <ul style="font-size:13px; line-height:1.7; padding-left:20px; color:var(--text-muted);">
+          <li><strong>Biometric Dignity:</strong> Human speech signals are treated as private biometric assets. Voice features are mathematically extracted into cepstral parameters and never uploaded to public commercial clouds.</li>
+          <li><strong>Access Equity:</strong> Students with vocal fatigue, speech impediments, or temporary laryngitis are provided an equal, non-discriminatory fallback via the Manual Entry interface with identical dining privileges.</li>
+          <li><strong>Academic Authorship:</strong> All mathematical algorithms, software routines, and documentation were implemented by the project team for the EEE 312 Sessional course under BUET academic guidelines.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // Highlight active sidebar navigation link on scroll
+    window.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const id = entry.target.getAttribute('id');
+          if (entry.intersectionRatio > 0) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+              link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+          }
+        });
+      }, { rootMargin: '0px 0px -70% 0px' });
+
+      document.querySelectorAll('section.manual-section, .card[id]').forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
+</body>
+</html>

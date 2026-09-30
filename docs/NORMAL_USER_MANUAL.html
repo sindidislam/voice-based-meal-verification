@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Normal User Manual — Voice Meal Verification (v4)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', Arial, sans-serif;
+      max-width: 960px;
+      margin: auto;
+      padding: 32px 20px;
+      color: #17324d;
+      background: #f4f8fb;
+      line-height: 1.65;
+    }
+    main {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 30, 60, 0.07);
+    }
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      color: #0c4a6e;
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      color: #0369a1;
+      border-bottom: 2px solid #e0f2fe;
+      padding-bottom: 6px;
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
+    .badge-v4 {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      font-weight: 700;
+      background: #dbeafe;
+      color: #1d4ed8;
+      padding: 3px 8px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+    .step {
+      border-left: 5px solid #059669;
+      background: #ecfdf5;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+    }
+    .warn {
+      border-left: 5px solid #d97706;
+      background: #fffbeb;
+      padding: 14px 18px;
+      margin: 14px 0;
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+    }
+    kbd {
+      background: #e2e8f0;
+      color: #0f172a;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 4px;
+      box-shadow: 0 1px 1px rgba(0,0,0,0.2);
+    }
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      background: #f1f5f9;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #0369a1;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 14px 0;
+      font-size: 14px;
+    }
+    td, th {
+      border: 1px solid #cbd5e1;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+    }
+    a {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .nav-bar {
+      margin-bottom: 20px;
+      font-size: 13.5px;
+    }
+  </style>
+</head>
+<body><aside style="margin:16px;padding:14px;border:2px solid #bd8700;background:#fff5d6;color:#222;font:16px/1.5 sans-serif"><strong>Current workflow, 28 September 2026:</strong> Coupons and manual-entry access are retired. In Admin, unlock the current month, search/select IDs or mark rows, then assign. Both ID and name recordings must independently verify the same student. Open the GUI <strong>Improvements</strong> tab for equations, sources and the stricter rule's acceptance tradeoff. Older workflow descriptions and measurements below are historical; see <a href="README_CURRENT.md">current instructions</a>.</aside>
+  <main>
+    <div class="nav-bar">
+      <a href="README_DOCUMENTATION.html">← Documentation Index</a> &nbsp;|&nbsp; 
+      <a href="SYSTEM_MANUAL.html">Comprehensive Technical & Theory Manual</a> &nbsp;|&nbsp; 
+      <a href="PROJECT_PRESENTATION.html">Interactive Slide Deck (Update)</a>
+    </div>
+
+    <span class="badge-v4">VERSION 4 VERIFIED WORKFLOW</span>
+    <h1>Normal User Manual — Dining Counter Patron Guide</h1>
+    <p>
+      This manual is intended for student diners and dining counter operators using the public <strong>Verify Meal</strong> tab of the EEE 312 Voice Verification Kiosk.
+    </p>
+
+    <h2>1. Quick Start: How to Verify at the Counter</h2>
+    <div class="step">
+      <strong>Step 1 — Initiate Verification.</strong> Press <kbd>Record and Verify</kbd> once. Do not double-click.
+    </div>
+    <div class="step">
+      <strong>Step 2 — Watch Visual Countdown (3... 2... 1...).</strong> Prepare to speak.
+    </div>
+    <div class="step">
+      <strong>Step 3 — Remain Silent for 0.5-Second Lead-In.</strong> When recording begins, remain completely silent for 0.5 seconds while the system profiles ambient cafeteria noise. <em>Speaking prematurely during this silence will corrupt the noise subtraction filter!</em>
+    </div>
+    <div class="step">
+      <strong>Step 4 — Speak Your 7-Digit Student ID.</strong> When the display shows <code>>>> SPEAK NOW! <<<</code>, clearly speak your seven-digit Student ID at normal conversational pace (e.g. <em>"Two, Two, Zero, Six, One, Four, Seven"</em>).
+    </div>
+    <div class="step">
+      <strong>Step 5 — Automatic Name Retry (If Needed).</strong> If your spoken ID is ambiguous or borderline, the system will prompt you for your Spoken Full Name. Follow the same silent lead-in and speak your name.
+    </div>
+    <div class="step">
+      <strong>Step 6 — Monthly Coupon Token (First Meal of the Month Only).</strong>
+      <br>If dining for the <strong>first time in a new calendar month</strong>, enter the 6-digit coupon token assigned by the hall administration in the <code>6-digit coupon code</code> field. Once accepted, dining is unlocked for the next 30 days — <em>you will not be asked for a coupon again this month</em>.
+    </div>
+    <div class="step">
+      <strong>Step 7 — Collect Meal.</strong> When the screen displays a green <strong style="color:#059669;">SERVE [Meal]</strong> confirmation, collect your plate.
+    </div>
+
+    <h2>2. Dynamic Monthly Coupon Policy (Version 4 Update)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Dining Situation</th>
+          <th>Required Patron Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>First meal in a new calendar month</strong></td>
+          <td>Speak your Student ID, and type your dynamic 6-digit monthly coupon token into the coupon box. The system consumes this token and records your 30-day dining entitlement.</td>
+        </tr>
+        <tr>
+          <td><strong>Subsequent meals in the same month</strong></td>
+          <td>Speak your Student ID only. <strong>Leave the coupon box empty.</strong> The system automatically recognizes your active 30-day payment record.</td>
+        </tr>
+        <tr>
+          <td><strong>Second meal in the same service window</strong></td>
+          <td>Identity may verify, but the meal is <strong>REFUSED</strong> by the single-serving hall rule (only one meal per student per window).</td>
+        </tr>
+        <tr>
+          <td><strong>Expired or reused coupon</strong></td>
+          <td><strong>REFUSED.</strong> Every monthly coupon is strictly bound to one student, one month, and one successful transaction.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. Manual Fallback Procedure</h2>
+    <p>
+      If severe hoarseness, cold, or microphone faults prevent voice matching after two attempts:
+    </p>
+    <ol style="padding-left: 20px; font-size: 14.5px; line-height: 1.8;">
+      <li>Type your 7-digit Student ID in the box labeled: <code>If voice matching fails: type ID/name</code>.</li>
+      <li>If this is your first meal of the month, ensure your 6-digit coupon token is typed into the coupon box.</li>
+      <li>Press <kbd>Manual entry</kbd>. The system validates your enrollment, active meal hours, and monthly dining entitlement.</li>
+    </ol>
+
+    <h2>4. Common Status Messages & Resolutions</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Displayed Message</th>
+          <th>Explanation & Required Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>● RECORDING: Remain silent for 0.5 s...</code></td>
+          <td>The DSP noise filter is measuring background room noise. <strong>Do not speak yet.</strong></td>
+        </tr>
+        <tr>
+          <td><code>>>> SPEAK NOW! <<<</code></td>
+          <td>The measurement window has finished. Speak your ID or name immediately.</td>
+        </tr>
+        <tr>
+          <td><code>REFUSED: First meal of this month: payment is required.</code></td>
+          <td>Enter your 6-digit monthly coupon token in the coupon field and re-verify.</td>
+        </tr>
+        <tr>
+          <td><code>REFUSED: Dining service is closed at this time.</code></td>
+          <td>Counter is closed. Serving hours: Breakfast (07:00–09:30), Lunch (12:00–14:30), Dinner (19:00–21:30).</td>
+        </tr>
+        <tr>
+          <td><code>REFUSED: Already served Lunch in this meal window.</code></td>
+          <td>You have already collected your allotted meal for this serving period.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5. Hygiene & Privacy Notice</h2>
+    <p>
+      This system provides a 100% touchless acoustic verification interface to protect communal health in university dining halls. Voice biometrics are processed purely locally on edge hardware and are never uploaded to external internet servers.
+    </p>
+  </main>
+</body>
+</html>

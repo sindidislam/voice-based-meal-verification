@@ -1,0 +1,10 @@
+{
+  "Id": "2206141",
+  "Name": "Student 2206141",
+  "CouponCode": "",
+  "NameSource": "identity-only fallback; exact name spelling unverified",
+  "IdentitySource": "User-supplied speaker folder label",
+  "Active": true,
+  "EnrollmentPolicy": "Take 1 only; take 2 development; take 3 final test",
+  "SourceManifest": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Results\\vsd_import_20260927\\phrase_manifest.csv"
+}

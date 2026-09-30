@@ -1,0 +1,233 @@
+{
+  "MatlabVersion": "24.1.0.2537033 (R2024a)",
+  "MatlabRelease": "2024a",
+  "Computer": "PCWIN64",
+  "RuntimeSeconds": 2062.9905238,
+  "CompletedAt": "2026-09-27 09:34:12",
+  "SelectedVariant": "current_dsp",
+  "SelectedParams": {
+    "fs": 44100,
+    "processingFs": 8000,
+    "recordDur": 8,
+    "maxVoiceRetries": 2,
+    "maxVerificationAttempts": 3,
+    "requireCoupon": true,
+    "couponMode": "manual",
+    "quality": {
+      "MinLiveSpeechDuration": 0.6
+    },
+    "resample": {
+      "FilterOrder": 20,
+      "Beta": 5
+    },
+    "agc": {
+      "TargetRms": 0.05,
+      "MaxGain": 40,
+      "MinRms": 1E-5,
+      "Headroom": 0.99,
+      "Enable": true
+    },
+    "usePreEmphasis": false,
+    "alpha": 0.97,
+    "noise": {
+      "NoiseDuration": 0.5,
+      "FrameDuration": 0.032,
+      "HopFraction": 0.25,
+      "Oversubtraction": 2,
+      "SpectralFloor": 0.02,
+      "Enable": true,
+      "Method": "spectral"
+    },
+    "endpoint": {
+      "FrameDuration": 0.02,
+      "HopDuration": 0.01,
+      "NoiseDuration": 0.5,
+      "EnergyMultiplier": 4,
+      "ZCRMinFactor": 0.5,
+      "ZCRMaxFactor": 2.5,
+      "ZCRAbsoluteMax": 0.45,
+      "ZCRAbsoluteMin": 0.008,
+      "MinActiveFrames": 3,
+      "MaxGapFrames": 8,
+      "PaddingDuration": 0.04,
+      "ZcrReferenceFs": 8000,
+      "Mode": "hybrid"
+    },
+    "liveness": {
+      "Enable": true,
+      "LowBand": [
+        20,
+        200
+      ],
+      "FullBand": [
+        20,
+        3800
+      ],
+      "MinRatio": 0.00024,
+      "MaxRatio": 0.7,
+      "MinDuration": 0.15
+    },
+    "featureFrontEnd": "mfcc",
+    "dft": {
+      "FrameDuration": 0.03,
+      "HopDuration": 0.015,
+      "NumBands": 24,
+      "Band": [
+        80,
+        3800
+      ],
+      "LogFloor": 1E-8,
+      "CmvNormalise": true,
+      "IncludeDelta": false,
+      "DeltaSpan": 2
+    },
+    "Tw": 25,
+    "Ts": 10,
+    "R": [
+      300,
+      3700
+    ],
+    "M": 26,
+    "C": 13,
+    "L": 22,
+    "mfcc": {
+      "CmsNormalise": false,
+      "CmvNormalise": false,
+      "DropC0": false,
+      "IncludeDelta": true,
+      "IncludeDeltaDelta": true,
+      "Rasta": false,
+      "IncludePitch": false,
+      "IncludeSpectral": false,
+      "StaticWeight": 1,
+      "DeltaWeight": 1,
+      "DeltaDeltaWeight": 1,
+      "PitchWeight": 1,
+      "SpectralWeight": 1
+    },
+    "dtw": {
+      "SakoeChibaBand": 0.3,
+      "Normalise": true
+    },
+    "perPhraseReference": {
+      "mfcc": {
+        "Threshold": 31.6868,
+        "Far": 0.01,
+        "Frr": 0.1546,
+        "Eer": 0.0829,
+        "EerThreshold": 37.1585
+      },
+      "dft": {
+        "Threshold": 1.8188,
+        "Far": 0.01,
+        "Frr": 0.2062,
+        "Eer": 0.1131,
+        "EerThreshold": 2.2064
+      }
+    },
+    "dtwThresholdByFrontEnd": {
+      "mfcc": 37.1585,
+      "dft": 2.4227
+    },
+    "dtwThreshold": 37.1585,
+    "dtwMarginRatio": 1.2,
+    "trainBaseFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Train",
+    "trainIdFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Train\\ID",
+    "trainNameFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Train\\Name",
+    "trainCouponFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Train\\Coupon",
+    "profileFileName": "profile.mat",
+    "idKeyedProfilesOnly": true,
+    "testFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Test",
+    "codeFileName": "code.txt",
+    "samplesPerPhrase": 3,
+    "templateQuietLeadInRatio": 0.35,
+    "templateMinimumRms": 0.0001,
+    "enforceLivenessOnTemplates": false,
+    "logFile": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\MealLog.csv",
+    "monthlyEntitlementFile": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\MonthlyFeeEntitlement.csv",
+    "monthlyCouponFile": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\MonthlyCouponRegistry.csv",
+    "mealScheduleFile": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\MealSchedule.csv",
+    "meals": [
+      {
+        "Name": "Breakfast",
+        "Start": [
+          7,
+          0
+        ],
+        "End": [
+          9,
+          30
+        ]
+      },
+      {
+        "Name": "Lunch",
+        "Start": [
+          12,
+          0
+        ],
+        "End": [
+          16,
+          30
+        ]
+      },
+      {
+        "Name": "Dinner",
+        "Start": [
+          19,
+          0
+        ],
+        "End": [
+          21,
+          30
+        ]
+      }
+    ],
+    "oneMealPerWindow": true,
+    "adminId": "admin",
+    "adminPassword": "admin",
+    "evaluation": {
+      "ComparisonRates": [
+        8000,
+        16000
+      ],
+      "FrontEnds": [
+        "dft",
+        "mfcc"
+      ],
+      "Matchers": [
+        "dtw",
+        "xcorr"
+      ],
+      "ResultsFolder": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\Results",
+      "RandomSeed": 312
+    },
+    "templateAggregation": "mean",
+    "idDtwThreshold": 31.3481707602672,
+    "idMarginRatio": 1.2007060350925329,
+    "nameDtwThreshold": 30.351024711013427,
+    "nameMarginRatio": 1.2123533210235664
+  },
+  "StudentCount": 31,
+  "FinalTestRecordingCount": 62,
+  "DatasetRoot": "C:\\Users\\sindi\\Downloads\\312  proj update\\Final project v4.1.4\\VSD_Corpus",
+  "Mode": "full",
+  "Repeats": 3,
+  "FigureStatus": [
+    "exported",
+    "unavailable"
+  ],
+  "Protocol": {
+    "Enrollment": "take1",
+    "Development": "take2",
+    "FinalTest": "take3",
+    "Retrospective": true,
+    "ArchivedTemplatePreprocessing": true,
+    "SelectionFrozenBeforeFinalExtraction": true,
+    "FalseClaimContent": "impostor own ID/name",
+    "DecisionPolicy": "ID-first independently gated Name fallback",
+    "LiveMaximumAttempts": 3,
+    "EvaluationRoundsPerPair": 1,
+    "GenuineClaimDenominator": 31,
+    "FalseClaimDenominator": 930
+  }
+}

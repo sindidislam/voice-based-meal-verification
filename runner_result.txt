@@ -1,0 +1,6 @@
+=== TEST SUMMARY: test_v4_1_features ===
+Passed: 0, Failed: 4
+FAILED: Monthly payments button exists
+FAILED: Coupon registry button exists
+FAILED: test_reset_coupon_registry passes with unconsume, student delete, and all clear modes
+FAILED: test_gui_coupon_reset passes with multifunctional reset button and dedicated reset coupons button

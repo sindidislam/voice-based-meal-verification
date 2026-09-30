@@ -1,0 +1,7 @@
+v4.1.4_claude corpus evaluation  2026-09-30 09:34:10
+DataRoot: /home/claude/work/v414c/VSD_Enrollment/Train
+LOTO genuine acceptance: 114/116 = 98.3 % (wrong-student accepts: 0)
+   same (database) mic: 88/88, other mics: 26/28
+CROSS-MIC (enrol database mic only): 18/20 = 90.0 % (wrong accepts 0)
+UNKNOWN-SPEAKER false accepts: 0/116 = 0.0 %
+PERFECT-MIMIC imposter trials: 3596, false accepts 0.22 %, imposter correctly named 97.4 %
